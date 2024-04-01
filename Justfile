@@ -1,0 +1,56 @@
+# useful project directories
+root := justfile_directory()
+docs := root / 'docs'
+tests := root / 'tests'
+assets := root / 'assets'
+template := root / 'template'
+
+# install/uninstall specific variables
+data :=  data_directory() / 'typst' / 'packages'
+namespace := 'preview'
+version := '0.1.0'
+name := 'chiral-thesis-fhe'
+spec := '@' + namespace + '/' + name + ':' + version
+
+# typst envs for easy development
+export TYPST_ROOT := root
+export TYPST_FONT_PATH := assets / 'fonts'
+
+[private]
+@default:
+	just --list
+
+# compile the manual and exmaples
+doc:
+	typst compile {{ docs / 'manual.typ' }} {{ docs / 'manual.pdf' }}
+	typst compile \
+		--root {{ template }} \
+		{{ template / 'main.typ' }} \
+		{{ assets / 'thumbnail.png' }}
+	oxipng --opt max {{ assets / 'thumbnail.png' }}
+
+# test the scaffolding
+scaffold: install
+	rm -rf {{ tests / 'template' }}
+	typst init {{ spec }} {{ tests / 'template' }}
+
+# run the test suite
+test *args:
+	typst-test run {{ args }}
+
+# update the given tests
+update *args:
+	typst-test update {{ args }}
+
+# install the package locally
+install: uninstall
+	mkdir -p {{ data / namespace / name }}
+	ln -s {{ root }} {{ data / namespace / name / version }}
+
+# uninstall the package locally
+uninstall:
+	rm -rf {{ data / namespace / name / version }}
+
+# uninstall all versions of the package locally
+purge:
+	rm -rf {{ data / namespace / name }}
