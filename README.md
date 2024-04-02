@@ -1,6 +1,6 @@
 # chiral-thesis-fhe
 This is a thesis template for the [University of Applied Sciences Erfurt][fhe] (FHE). It provides
-scaffolding for a [typst] project which can be used to write a bachelor's thesis, mastere's thesis,
+scaffolding for a [Typst] project which can be used to write a bachelor's thesis, mastere's thesis,
 or simple a report in the style mandated by the university.
 
 The template package provides scaffolding and defaults in both German, but may later be extended
@@ -14,13 +14,21 @@ explaining how to add and remove optional parts of the document.
 TODO
 
 ## TODO
-- [ ]
-- [ ]
-- [ ] publish
+The following tasks remain before publishing on Typst Universe.
+- [ ] Get into a workable state
+- [ ] Separate styles into optional and mandatory styles for easier picking and chosing
+  - [ ] Provide more common defaults
+- [ ] Fix anti-matter and use it again
+- [ ] Provide better error messages on incorrect inputs
+- [ ] Ensure abstracts are part of the PDF outline by using unstyled headings
+- [ ] Document package API and template README.md
+- [ ] Add metadata for post document checking (no remaining todos, correct layout choices)
+- [ ] Correctly separate fonts and resources or implement resources in Typst
 
 ## Documentation
 The documentation for this package can be viewed in the [manual]. A changelog is curated
-[here][changelog].
+[here][changelog] and the initialized project contains a [README][template-readme] explaining how
+to get started.
 
 ## Contribution
 To contribute, simply open an issue to discuss a possible feature or problem that needs fixing. If
@@ -43,3 +51,4 @@ as well as on the last letter of LaTeX being the greek letter chi.
 
 [manual]: ./docs/manual.pdf
 [changelog]: ./CHANGELOG.md
+[template-readme]: ./template/README.md
