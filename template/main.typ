@@ -1,16 +1,14 @@
-#import "@preview/chiral-thesis-fhe:0.1.0": template, bachelors-thesis, util
-#import util: chapter
+#import "@preview/chiral-thesis-fhe:0.1.0" as ctf
+#import ctf.prelude: *
 
-#show: template(
+#show: doc(
   kind: bachelors-thesis(
     id: [AI-#datetime.today().year();-MA-999],
     title: [Mustertitel],
     // subtitle:
     author: [Max Mustermann],
-    place: [Erfurt],
     date: datetime.today(),
-    spec: [Angewandte Informatik],
-    spec-in: [Angewandten Informatik],
+    field: [Angewandte Informatik],
   ),
   listings: (
     // you can remove any of these if you don't need them
@@ -18,14 +16,11 @@
     (target: table, title: [Tabellenverzeichnis]),
     (target: raw,   title: [Listingverzeichnis]),
   ),
-  listing-position: start,
-  glossary: "/appendices/glossary.typ",
-  acronyms: "/appendices/acronyms.typ",
-  bib: "/bibliography.yaml",
+  listings-position: start,
+  glossary: import "/appendices/glossary.typ",
+  acronyms: import "/appendices/acronyms.typ",
+  bibliography: bibliography("/bibliography.yaml"),
 )
-
-#show cite: text.with(fill: purple)
-#show link: text.with(fill: blue)
 
 // these are your main document chapters, you can reference them using @chap:...
 #chapter[Intro] <chap:intro>

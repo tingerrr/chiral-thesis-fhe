@@ -23,10 +23,14 @@ export TYPST_FONT_PATH := assets / 'fonts'
 # compile the manual and exmaples
 doc:
 	typst compile {{ docs / 'manual.typ' }} {{ docs / 'manual.pdf' }}
+	rm -rf {{ assets / 'tmp' }}
+	mkdir {{ assets / 'tmp' }}
 	typst compile \
 		--root {{ template }} \
 		{{ template / 'main.typ' }} \
-		{{ assets / 'thumbnail.png' }}
+		{{ assets / 'tmp' / 'thumbnail{n}.png' }}
+	mv {{ assets / 'tmp' / 'thumbnail01.png' }} {{ assets / 'thumbnail.png' }}
+	rm -rf {{ assets / 'tmp' }}
 	oxipng --opt max {{ assets / 'thumbnail.png' }}
 
 # test the scaffolding
