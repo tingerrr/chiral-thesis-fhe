@@ -1,3 +1,7 @@
+#let _std = (
+  numbering: numbering
+)
+
 #let sentinel-or(sentinel, value, default) = if value == sentinel {
   value
 } else {
@@ -25,6 +29,10 @@
 }
 
 #let chapter = heading.with(level: 1)
+
+#let chapter-relative-numbering(numbering, ..args) = {
+  (_std.numbering)(numbering, counter(heading).get().first(), ..args)
+}
 
 // TODO: is the numbering here and for headings in general correct? is the trailing dot expected?
 #let number-appendices(..args) = if args.pos().len() == 1 {

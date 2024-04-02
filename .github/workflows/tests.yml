@@ -35,6 +35,9 @@ jobs:
         with:
           version: 'v0.10.0'
 
+      - name: Install template locally
+        run: just install
+
       - name: Test manual and example generation
         run: just doc
 

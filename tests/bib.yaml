@@ -1,0 +1,11 @@
+knuth:
+  type: book
+  tite: Computer modern typefaces
+  quthor: Knuth, Donald Ervin
+  publisher: Addison-Wesley
+  year: 1986
+  url:
+    value: https://www.worldcat.org/oclc/13157596
+    date: 2020-07-17
+  serial:
+    isbn: 0201134462

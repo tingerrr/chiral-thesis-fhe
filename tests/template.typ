@@ -1,5 +1,5 @@
-#import "/src/lib.typ" as chiral-thesis-fhe
-
-#import chiral-thesis-fhe: doc
+#import "/src/lib.typ" as ctf
+// #import ctf: report, thesis, bachelors-thesis, masters-thesis
+#import ctf.prelude: *
 
 #show: doc()
