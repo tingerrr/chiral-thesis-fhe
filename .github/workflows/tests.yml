@@ -23,6 +23,11 @@ jobs:
         with:
           crate: just
 
+      - name: Install oxipng from crates.io
+        uses: baptiste0928/cargo-install@v2.2.0
+        with:
+          crate: oxipng
+
       - name: Install typst-test from github
         uses: baptiste0928/cargo-install@v2.2.0
         with:
@@ -33,7 +38,7 @@ jobs:
       - name: Setup typst
         uses: yusancky/setup-typst@v2
         with:
-          version: 'v0.10.0'
+          version: 'v0.11.0'
 
       - name: Install template locally
         run: just install

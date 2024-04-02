@@ -13,6 +13,11 @@ explaining how to add and remove optional parts of the document.
 ## Exmaple
 TODO
 
+## TODO
+- [ ]
+- [ ]
+- [ ] publish
+
 ## Documentation
 The documentation for this package can be viewed in the [manual]. A changelog is curated
 [here][changelog].
