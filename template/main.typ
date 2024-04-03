@@ -3,10 +3,10 @@
 
 #show: doc(
   kind: bachelors-thesis(
-    id: [AI-#datetime.today().year();-MA-999],
+    id: [AI-1970-MA-999],
     title: [Mustertitel],
     // subtitle:
-    author: [Max Mustermann],
+    author: "Max Mustermann",
     date: datetime.today(),
     field: [Angewandte Informatik],
   ),
