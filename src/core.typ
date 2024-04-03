@@ -147,7 +147,7 @@
   let independence-page = if independence == auto {
     heading(level: 1)[Eigenständigkeitserklärung]
     [
-      Ich, #authors.format-author(meta.author, email: false), versichere hiermit, dass ich die vorliegende #meta.kind.name mit dem Thema
+      Ich, #authors.format-author(meta.author, email: false), versichere hiermit, dass ich die vorliegende #meta.kind.name mit dem Titel
       #align(center, emph(meta.title))
       selbstständig und nur unter Verwendung der angegebenen Quellen und Hilfsmittel angefertigt habe.
     ]
