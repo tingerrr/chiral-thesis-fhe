@@ -65,7 +65,7 @@
 
     date: date,
 
-    supervisors: supervisors,
+    supervisors: supervisors.map(_prepare-author),
   )
 }
 

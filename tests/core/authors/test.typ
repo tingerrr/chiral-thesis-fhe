@@ -8,16 +8,16 @@
 // title
 #let prof = (
   main: "Prof.",
-  suffixes: (),
+  suffix: none,
 )
 #let dr = (
   rer-nat: (
     main: "Dr.",
-    suffixes: ("rer.", "nat."),
+    suffix: "rer. nat.",
   ),
   sc-nat: (
     main: "Dr.",
-    suffixes: ("sc.", "nat."),
+    suffix: "sc. nat.",
   ),
 )
 #assert.eq(parse-title("Prof."), prof)
@@ -67,8 +67,8 @@
 #let tingerrr = (
   titles: (
     (
-      main: "B.Sc.",
-      suffixes: (),
+      main: "B.",
+      suffix: "Sc.",
     ),
   ),
   name: (
@@ -77,7 +77,22 @@
   ),
   email: "me@tinger.dev",
 )
-#assert.eq(parse-author("B.Sc. tingerrr <me@tinger.dev>"), tingerrr)
+#assert.eq(parse-author("B. Sc. tingerrr <me@tinger.dev>"), tingerrr)
+
+#let kpj = (
+  titles: (
+    (main: "Prof.", suffix: none),
+    (main: "Dr.", suffix: "rer. nat."),
+    (main: "Dr.", suffix: "sc. nat."),
+  ),
+  name: (
+    first: ("Klaus", "Peter"),
+    last: ("Jantke",),
+  ),
+  email: none,
+)
+#assert.eq(parse-author("B. Sc. tingerrr <me@tinger.dev>"), tingerrr)
+#assert.eq(parse-author("Prof. Dr. rer. nat. Dr. sc. nat. Klaus Peter Jantke"), kpj)
 
 //
 // formatting
@@ -101,4 +116,5 @@
 #assert.eq(format-name(knuth, abbreviate: true), "D. E. Knuth")
 
 // author
-#assert.eq(format-author(tingerrr, link: false), "B.Sc. tingerrr <me@tinger.dev>")
+#assert.eq(format-author(tingerrr, link: false), "B. Sc. tingerrr <me@tinger.dev>")
+#assert.eq(format-author(kpj, link: false), "Prof. Dr. rer. nat. Dr. sc. nat. Klaus Peter Jantke")

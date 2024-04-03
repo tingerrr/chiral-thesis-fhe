@@ -1,42 +1,78 @@
 #import "packages.typ" as _pkg
+#import "utils.typ" as _utils
 
 #let _std = (
   link: link,
 )
 
-// TODO: improve this to properly parse Dipl-Ing. and such
+#let _eat-title(value) = {
+  let rest = value.trim(at: start)
+
+  let (main, rest) = _utils.token-eat-any(rest, (
+    "Dr.", "Prof.", regex("Dipl-\\w+\\."), "M.", "B.",
+  ))
+
+  if main == none {
+    return (err: _pkg.oxifmt.strfmt("unknown tilte at: `{}`", rest))
+  }
+
+  if not _utils.token-is-boundary(rest) {
+    return (err: _pkg.oxifmt.strfmt("unexpected input after title at: `{}`", rest))
+  }
+
+  if main in ("Prof.", "Dr.", "M.", "B.") {
+    if main == "Prof." {
+      ((main: main, suffix: none), rest)
+    } else if main == "Dr." {
+      let (suffix, rest) = _utils.token-eat(rest.trim(at: start), regex("\\w+\\. *nat\\."))
+      if suffix != none {
+        if not _utils.token-is-boundary(rest) {
+          return (err: _pkg.oxifmt.strfmt("unexpected after doctor suffix at: `{}`", rest))
+        }
+      }
+
+      ((main: main, suffix: suffix), rest)
+    } else {
+      let (suffix, rest) = _utils.token-eat(rest.trim(at: start), "Sc.")
+
+      if suffix == none {
+        return (err: _pkg.oxifmt.strfmt(
+          "unknown {} suffix at `{}`",
+          if main == "M." { "masters" } else { "bachelors" },
+          rest,
+        ))
+      }
+
+      ((main: main, suffix: suffix), rest)
+    }
+  } else {
+    if not _utils.token-is-boundary(rest) {
+      return (err: _pkg.oxifmt.strfmt("unexpected input at: `{}`", rest))
+    }
+
+    ((main: main, suffix: none), rest)
+  }
+}
+
 #let parse-title(value) = {
   assert.eq(
     type(value), str,
     message: _pkg.oxifmt.strfmt("`value` must be a string, was {}", type(value))
   )
 
-  value = value.trim().split(" ").filter(frag => frag.len() != 0)
-
-  if value.len() == 0 {
-    panic("title cannot be empty")
+  let res = _eat-title(value)
+  if type(res) == dictionary {
+    panic(res.err)
   }
 
-  let (first, ..rest) = value
+  let (title, rest) = res
 
-  if first not in ("Dr.", "Prof.", "B.Sc.", "M.Sc.") {
-    panic("only professor, doctor, bachelor and master's titles are currently allowed")
+  rest = rest.trim(at: start)
+  if rest.len() != 0 {
+    panic(_pkg.oxifmt.strfmt("unexpected input at `{}`", rest))
   }
 
-  if first == "Dr." {
-    if rest.len() != 2 or rest.at(1) != "nat." {
-      panic("only doctor ... naturalum title suffixes are currently allowed")
-    }
-  } else {
-    if rest.len() != 0 {
-      panic("only doctor titles currently allow suffixes")
-    }
-  }
-
-  (
-    main: first,
-    suffixes: rest,
-  )
+  title
 }
 
 #let parse-name(value) = {
@@ -71,7 +107,7 @@
   // validate names
   // NOTE: using \w is too permissive, but this is not really an issue in most cases
   if not value.all(frag => frag.match(regex("^([\\w'\\-]+|[\\w]\\.)$")) != none) {
-    panic("name contained invalid character")
+    panic(_pkg.oxifmt.strfmt("name contained invalid character: `{}`", value.join(" ")))
   }
 
   let (first, last) = if part != none {
@@ -100,33 +136,24 @@
     message: _pkg.oxifmt.strfmt("`value` must be a string, was {}", type(value))
   )
 
+  value = value.trim()
+
+  let titles = ()
+  while true {
+    let res = _eat-title(value)
+    if type(res) == dictionary {
+      break
+    } else {
+      let (title, rest) = res
+      titles.push(title)
+      value = rest
+    }
+  }
+
   value = value.trim().split(" ").filter(frag => frag.len() != 0)
 
   if value.len() == 0 {
     panic("author cannot be empty")
-  }
-
-  // TODO: this will fail on abbreviated names
-  // we try finding the last item that is a title
-  let part = none
-  for (idx, frag) in value.enumerate() {
-    if part == none {
-      if frag.ends-with(".") {
-        part = idx
-      }
-    } else {
-      if not frag.ends-with(".") {
-        part = idx
-        break
-      }
-    }
-  }
-
-  let titles = ()
-  if part != none {
-    assert.ne(part, value.len() - 1, message: "author must contain name")
-    titles = value.slice(0, part)
-    value = value.slice(part)
   }
 
   let email = if value.last().starts-with("<") and value.last().ends-with(">") {
@@ -138,29 +165,29 @@
   }
 
   (
-    titles: titles.map(parse-title),
+    titles: titles,
     name: parse-name(value.join(" ")),
     email: email,
   )
 }
 
-#let format-title(title, suffixes: true) = {
+#let format-title(title, suffix: true) = {
   assert.eq(
     type(title), dictionary,
     message: _pkg.oxifmt.strfmt("`title` must be a title dictionary, was {}", type(title)),
   )
   assert.eq(
-    title.keys(), ("main", "suffixes"),
+    title.keys(), ("main", "suffix"),
     message: _pkg.oxifmt.strfmt(
-      "`title` must contain `main` and `suffixes`, contained {}",
+      "`title` must contain `main` and `suffix`, contained {}",
       title.keys(),
     ),
   )
 
   title.main
-  if suffixes and title.suffixes.len() != 0 {
+  if suffix and title.suffix != none {
     " "
-    title.suffixes.join(" ")
+    title.suffix
   }
 }
 
@@ -203,7 +230,7 @@
 #let format-author(
   author,
   titles: true,
-  title-suffixes: true,
+  title-suffix: true,
   abbreviate: false,
   email: true,
   link: false,
@@ -222,7 +249,7 @@
 
   if titles {
     for title in author.titles {
-      format-title(title, suffixes: title-suffixes)
+      format-title(title, suffix: title-suffix)
       " "
     }
   }

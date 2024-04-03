@@ -8,7 +8,8 @@
 // TODO: arg validation
 // TODO: provide good defaults
 #let doc(
-  kind: kinds.report(),
+  // kind: kinds.report(),
+  kind: (:),
   abstracts: none,
   bibliography: none,
   listings: (),
@@ -41,7 +42,10 @@
     )
 
     if kinds.is-thesis(meta.kind) {
-      place(center + bottom, text(18pt, meta.supervisors.join(linebreak())))
+      place(center + bottom, text(
+        18pt,
+        meta.supervisors.map(authors.format-author.with(email: false)).join(linebreak()),
+      ))
     }
 
     pagebreak(weak: true)
