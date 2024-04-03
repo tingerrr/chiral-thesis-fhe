@@ -2,6 +2,9 @@
 #import ctf.prelude: *
 
 #show: doc(
+  kind: masters-thesis(
+    date: datetime(year: 1970, month: 01, day: 01),
+  ),
   abstracts: (
     (title: [Abstract], abstract: lorem(100)),
   ),
