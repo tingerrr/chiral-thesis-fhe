@@ -13,6 +13,17 @@
   ),
 )
 
+#let _prepare-author(author) = {
+  if type(author) == str {
+    import "authors.typ"
+    authors.parse-author(author)
+  } else if type(author) == dictionary {
+    author
+  } else {
+    panic("only string and author dictionary are allowed as author")
+  }
+}
+
 #let report(
   title: [Mustertitel],
   author: "Musterstudent, Max",
@@ -23,7 +34,7 @@
     kind: kinds.report,
 
     title: title,
-    author: author,
+    author: _prepare-author(author),
     field: field,
 
     date: date,
@@ -49,7 +60,7 @@
     id: id,
 
     title: title,
-    author: author,
+    author: _prepare-author(author),
     field: field,
 
     date: date,

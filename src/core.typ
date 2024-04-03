@@ -1,4 +1,5 @@
 #import "packages.typ"
+#import "authors.typ"
 #import "kinds.typ"
 #import "styles.typ"
 #import "utils.typ"
@@ -33,8 +34,8 @@
       5em,
       text(32pt, font: "Latin Modern Sans", strong(meta.title)),
       3.4em,
-      // TODO: proper handling of more than one author and emails
-      text(16pt, strong(meta.author)),
+      // TODO: proper handling of more than one author
+      text(16pt, strong(authors.format-author(meta.author, email: false))),
       2.5em,
       text(18pt)[Abgabedatum: #utils.format-date(meta.date)],
     )
@@ -142,7 +143,7 @@
   let independence-page = if independence == auto {
     heading(level: 1)[Eigenständigkeitserklärung]
     [
-      Ich, #meta.author, versichere hiermit, dass ich die vorliegende #meta.kind.name mit dem Thema
+      Ich, #authors.format-author(meta.author, email: false), versichere hiermit, dass ich die vorliegende #meta.kind.name mit dem Thema
       #align(center, emph(meta.title))
       selbstständig und nur unter Verwendung der angegebenen Quellen und Hilfsmittel angefertigt habe.
     ]
@@ -150,7 +151,7 @@
     align(right)[
       Erfurt, #utils.format-date(meta.date)
     ]
-    meta.author
+    authors.format-author(meta.author, email: false)
   } else if type(independence) == content {
     heading(level: 1)[Eigenständigkeitserklärung]
     independence

@@ -24,9 +24,10 @@
 
 #let content() = body => {
   // number headings up to depth 4
-  set heading(numbering: (..args) => if args.pos().len() < 4 {
-    numbering("1.1", ..args)
-  })
+  show _std.heading.where(level: 1): set _std.heading(numbering: "1.1")
+  show _std.heading.where(level: 2): set _std.heading(numbering: "1.1")
+  show _std.heading.where(level: 3): set _std.heading(numbering: "1.1")
+  show _std.heading.where(level: 4): set _std.heading(numbering: "1.1")
 
   // turn on justification eveyrwhere except for specific elements
   set par(justify: true)
@@ -34,7 +35,7 @@
   show enum: set par(justify: false)
   show terms: set par(justify: false)
   show table: set par(justify: false)
-  show raw.where(block: true): set par(justify: false)
+  show _std.raw.where(block: true): set par(justify: false)
 
   // show links in eastern
   show link: text.with(fill: eastern)
