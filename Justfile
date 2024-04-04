@@ -16,9 +16,15 @@ spec := '@' + namespace + '/' + name + ':' + version
 export TYPST_ROOT := root
 export TYPST_FONT_PATHS := assets / 'fonts'
 
+alias tt := typst-test
+
 [private]
 @default:
-	just --list
+	just --list --unsorted
+
+# run typst-test with the required environment variables
+typst-test *args:
+	typst-test {{ args }}
 
 # compile the manual and exmaples
 doc:
@@ -34,17 +40,15 @@ doc:
 	oxipng --opt max {{ assets / 'thumbnail.png' }}
 
 # test the scaffolding
-scaffold: install
+test-scaffold: install && uninstall
 	rm -rf {{ tests / 'template' }}
 	typst init {{ spec }} {{ tests / 'template' }}
 
-# run the test suite
-test *args:
-	typst-test run {{ args }}
+# run the complete test suite
+test *args: (typst-test "run" args) test-scaffold
 
 # update the given tests
-update *args:
-	typst-test update {{ args }}
+update *args: (typst-test "update" args)
 
 # install the package locally
 install: uninstall
