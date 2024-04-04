@@ -88,11 +88,17 @@
     radius: 0.5em,
   )
 
+  // TODO: reduce spacing of lines
+
   // add outset line numbers
-  show _std.raw.line: it => {
-    let num = [#it.number]
-    place(left, dx: -(measure(num).width + 1.5em), align(right, num))
-    it.body
+  show _std.raw.where(block: true): it => {
+    show _std.raw.line: it => {
+      let num = [#it.number]
+      place(left, dx: -(measure(num).width + 1.5em), align(right, num))
+      it.body
+    }
+
+    it
   }
 
   // inline raw looks similar to block raw, but extends out of the line in y direction

@@ -36,7 +36,7 @@
 
 #chapter[Chapter 2]
 = Section
-#lorem(10)
+`inline raw` #lorem(10)
 #figure(
   [Hello World],
   caption: [A figure example],
