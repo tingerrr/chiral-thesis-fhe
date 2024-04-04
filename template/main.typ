@@ -5,7 +5,7 @@
   kind: bachelors-thesis(
     id: [AI-1970-MA-999],
     title: [Mustertitel],
-    // subtitle:
+    // subtitle: [],
     author: "Max Mustermann",
     date: datetime.today(),
     field: [Angewandte Informatik],
@@ -23,17 +23,17 @@
 )
 
 // these are your main document chapters, you can reference them using @chap:...
-#chapter[Intro] <chap:intro>
+#chapter[Einleitung] <chap:intro>
 #include "chapters/1 - intro.typ"
 
-#chapter[Basics] <chap:basics>
+#chapter[Grundlagen] <chap:basics>
 #include "chapters/2 - basics.typ"
 
-#chapter[Concept] <chap:concept>
+#chapter[Konzept] <chap:concept>
 #include "chapters/3 - concept.typ"
 
-#chapter[Implementation] <chap:impl>
+#chapter[Implementierung] <chap:impl>
 #include "chapters/4 - impl.typ"
 
-#chapter[Conculsion] <chap:conclusion>
+#chapter[Fazit] <chap:conclusion>
 #include "chapters/5 - conclusion.typ"
