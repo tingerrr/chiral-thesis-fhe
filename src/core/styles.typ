@@ -67,8 +67,8 @@
   show outline: set _std.heading(offset: 0)
 
   // other mandated style rules
-  show _std.heading: set block(above: 1.4em, below: 1em)
-  show _std.heading.where(level: 1): set text(font: "Latin Modern Sans")
+  show _std.heading: set block(above: 1.4em, below: 1.8em)
+  show _std.heading: set text(font: "Latin Modern Sans")
 
   // show outline headings
   show outline: set _std.heading(outlined: true)

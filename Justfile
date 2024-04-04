@@ -14,7 +14,7 @@ spec := '@' + namespace + '/' + name + ':' + version
 
 # typst envs for easy development
 export TYPST_ROOT := root
-export TYPST_FONT_PATH := assets / 'fonts'
+export TYPST_FONT_PATHS := assets / 'fonts'
 
 [private]
 @default:

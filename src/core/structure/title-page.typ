@@ -23,7 +23,7 @@
     stack(
       align(right, image("/assets/images/logo-fhe.svg", width: 45%)),
       5em,
-      text(16pt, strong[
+      text(16pt, font: "Latin Modern Sans", strong[
         #kind.name \
         #field
       ]),
