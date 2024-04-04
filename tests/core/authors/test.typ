@@ -1,9 +1,9 @@
-#import "/src/lib.typ" as ctf
+#import "/src/core/authors.typ"
 
 //
 // parsing
 //
-#import ctf.authors: parse-title, parse-name, parse-author
+#import authors: parse-title, parse-name, parse-author
 
 // title
 #let prof = (
@@ -97,7 +97,7 @@
 //
 // formatting
 //
-#import ctf.authors: format-title, format-name, format-author
+#import authors: format-title, format-name, format-author
 
 // title
 #assert.eq(format-title(prof), "Prof.")

@@ -1,3 +1,5 @@
+#import "/src/core/authors.typ" as _authors
+
 #let kinds = (
   report: (
     key: "report",
@@ -13,31 +15,24 @@
   ),
 )
 
-#let _prepare-author(author) = {
-  if type(author) == str {
-    import "authors.typ"
-    authors.parse-author(author)
-  } else if type(author) == dictionary {
-    author
-  } else {
-    panic("only string and author dictionary are allowed as author")
-  }
-}
-
 #let report(
   title: [Mustertitel],
+  subtitle: none,
   author: "Musterstudent, Max",
   field: [Fachbereich],
   date: datetime.today(),
 ) = {
   (
     kind: kinds.report,
+    id: none,
 
     title: title,
-    author: _prepare-author(author),
+    subtitle: subtitle,
+    author: _authors.prepare-author(author),
     field: field,
 
     date: date,
+    supervisors: (),
   )
 }
 
@@ -46,6 +41,7 @@
   id: [ID],
 
   title: [Mustertitel],
+  subtitle: none,
   author: "Musterstudent, Max",
   field: [Fachbereich],
   date: datetime.today(),
@@ -60,13 +56,20 @@
     id: id,
 
     title: title,
-    author: _prepare-author(author),
+    subtitle: subtitle,
+    author: _authors.prepare-author(author),
     field: field,
 
     date: date,
 
-    supervisors: supervisors.map(_prepare-author),
+    supervisors: supervisors.map(_authors.prepare-author),
   )
 }
 
+// TODO: error handling
 #let is-thesis(kind) = kind.key.starts-with("thesis-")
+
+#let assert-kind-valid(kind) = {
+  assert.eq(type(kind), dictionary)
+  // ...
+}

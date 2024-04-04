@@ -1,4 +1,4 @@
-#import "utils.typ"
+#import "/src/utils.typ" as _utils
 
 // TODO: separate optional and mandatory styling, let the user control optional styling
 
@@ -17,7 +17,7 @@
   set text(lang: "de", size: 11pt, font: "New Computer Modern")
 
   // TODO: should this really be global?
-  set page("a4", margin: (inside: 4cm, outside: 3cm, top: 2.5cm, bottom: 2.5cm))
+  set page(paper: "a4", margin: (inside: 4cm, outside: 3cm, top: 2.5cm, bottom: 2.5cm))
 
   body
 }
@@ -124,7 +124,7 @@
 
 #let figure(kinds: (image, raw, table)) = body => {
   // default to 1-1 numbering
-  set _std.figure(numbering: n => utils.chapter-relative-numbering("1-1", n))
+  set _std.figure(numbering: n => _utils.chapter-relative-numbering("1-1", n))
 
   // reset all figure counters on chapters
   show _std.heading.where(level: 1): it => {
@@ -161,7 +161,7 @@
 
   // equations are numbered 1.1
   show _std.figure.where(kind: math.equation): set _std.figure(
-    numbering: n => utils.chapter-relative-numbering("1.1", n),
+    numbering: n => _utils.chapter-relative-numbering("1.1", n),
   )
 
   // captions are generally emph and light gray
@@ -173,7 +173,7 @@
 
 #let math() = body => {
   // default to 1.1 numbering
-  set _std.math.equation(numbering: n => utils.chapter-relative-numbering("(1.1)", n))
+  set _std.math.equation(numbering: n => _utils.chapter-relative-numbering("(1.1)", n))
 
   // reset equation counters on chapters
   show _std.heading.where(level: 1): it => counter(_std.math.equation).update(0) + it

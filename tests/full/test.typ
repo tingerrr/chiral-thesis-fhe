@@ -6,7 +6,7 @@
     date: datetime(year: 1970, month: 01, day: 01),
   ),
   abstracts: (
-    (title: [Abstract], abstract: lorem(100)),
+    (title: [Abstract], body: lorem(100)),
   ),
   listings: (
     (target: image, title: [Abbildungsverzeichnis]),
@@ -15,12 +15,6 @@
   ),
   listings-position: start,
   bibliography: bibliography("/tests/bib.yaml"),
-  glossary: [
-    / computer science: A science concerned with computation.
-  ],
-  acronyms: [
-    / FHE: Fachhochschule Erfurt.
-  ],
 )
 
 #chapter[Chapter 1]

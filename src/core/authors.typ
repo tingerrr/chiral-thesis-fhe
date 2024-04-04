@@ -1,5 +1,5 @@
-#import "packages.typ" as _pkg
-#import "utils.typ" as _utils
+#import "/src/packages.typ" as _pkg
+#import "/src/utils.typ" as _utils
 
 #let _std = (
   link: link,
@@ -8,7 +8,7 @@
 #let _eat-title(value) = {
   let rest = value.trim(at: start)
 
-  let (main, rest) = _utils.token-eat-any(rest, (
+  let (main, rest) = _utils.token.eat-any(rest, (
     "Dr.", "Prof.", regex("Dipl-\\w+\\."), "M.", "B.",
   ))
 
@@ -16,7 +16,7 @@
     return (err: _pkg.oxifmt.strfmt("unknown tilte at: `{}`", rest))
   }
 
-  if not _utils.token-is-boundary(rest) {
+  if not _utils.token.is-boundary(rest) {
     return (err: _pkg.oxifmt.strfmt("unexpected input after title at: `{}`", rest))
   }
 
@@ -24,16 +24,16 @@
     if main == "Prof." {
       ((main: main, suffix: none), rest)
     } else if main == "Dr." {
-      let (suffix, rest) = _utils.token-eat(rest.trim(at: start), regex("\\w+\\. *nat\\."))
+      let (suffix, rest) = _utils.token.eat(rest.trim(at: start), regex("\\w+\\. *nat\\."))
       if suffix != none {
-        if not _utils.token-is-boundary(rest) {
+        if not _utils.token.is-boundary(rest) {
           return (err: _pkg.oxifmt.strfmt("unexpected after doctor suffix at: `{}`", rest))
         }
       }
 
       ((main: main, suffix: suffix), rest)
     } else {
-      let (suffix, rest) = _utils.token-eat(rest.trim(at: start), "Sc.")
+      let (suffix, rest) = _utils.token.eat(rest.trim(at: start), "Sc.")
 
       if suffix == none {
         return (err: _pkg.oxifmt.strfmt(
@@ -46,7 +46,7 @@
       ((main: main, suffix: suffix), rest)
     }
   } else {
-    if not _utils.token-is-boundary(rest) {
+    if not _utils.token.is-boundary(rest) {
       return (err: _pkg.oxifmt.strfmt("unexpected input at: `{}`", rest))
     }
 
@@ -267,4 +267,20 @@
       ">"
     }
   }
+}
+
+#let prepare-author(author) = {
+  if type(author) == str {
+    parse-author(author)
+  } else if type(author) == dictionary {
+    // TODO: validate dictionary
+    author
+  } else {
+    panic("only string and author dictionary are allowed as author")
+  }
+}
+
+// TODO: check dict keys and values
+#let assert-author-valid(author) = {
+  assert(type(author) in (str, dictionary))
 }
