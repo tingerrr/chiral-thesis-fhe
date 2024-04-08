@@ -15,15 +15,16 @@ TODO
 
 ## TODO
 The following tasks remain before publishing on Typst Universe.
-- [ ] Get into a workable state
+- [x] Get into a workable state
 - [ ] Separate styles into optional and mandatory styles for easier picking and chosing
   - [ ] Provide more common defaults
 - [ ] Fix anti-matter and use it again
 - [ ] Provide better error messages on incorrect inputs
-- [ ] Ensure abstracts are part of the PDF outline by using unstyled headings
+- [x] Ensure abstracts are part of the PDF outline by using unstyled headings
 - [ ] Document package API and template README.md
 - [ ] Add metadata for post document checking (no remaining todos, correct layout choices)
 - [ ] Correctly separate fonts and resources or implement resources in Typst
+- [ ] Passthrough values to `set document`
 
 ## Documentation
 The documentation for this package can be viewed in the [manual]. A changelog is curated
