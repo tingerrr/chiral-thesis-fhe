@@ -68,11 +68,12 @@
 
   set page(
     header: {
+      set text(8pt, font: "Latin Modern Sans")
       [Fachhochschule Erfurt]
       h(1fr)
       meta.field
       v(-0.5em)
-      line(length: 100%)
+      line(length: 100%, stroke: 0.5pt)
       counter(footnote).update(0)
     },
     footer: context {
