@@ -27,7 +27,7 @@ typst-test *args:
 	typst-test {{ args }}
 
 # compile the manual and exmaples
-doc:
+doc: install
 	typst compile {{ docs / 'manual.typ' }} {{ docs / 'manual.pdf' }}
 	rm -rf {{ assets / 'tmp' }}
 	mkdir {{ assets / 'tmp' }}
