@@ -15,6 +15,7 @@
   bibliography: none,
   listings: (),
   listings-position: end,
+  listings-force-empty: false,
   appendices: none,
   acknowledgement: none,
   affidavit: auto,
@@ -29,12 +30,10 @@
 
   // TODO: move rest to structure module
 
-  let listings-pages = {
-    listings.map(listing => {
-      outline(target: figure.where(kind: listing.target), title: listing.title)
-    })
-    .join(pagebreak(weak: true))
-  }
+  let listings-pages = structure.make-listings(
+    listings: listings,
+    force-empty: listings-force-empty,
+  )
 
   let appendices-page = if appendices != none {
     set heading(numbering: _utils.number-appendices, supplement: [Anhang])
