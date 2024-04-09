@@ -34,8 +34,8 @@ doc: install
 	typst compile \
 		--root {{ template }} \
 		{{ template / 'main.typ' }} \
-		{{ assets / 'tmp' / 'thumbnail{n}.png' }}
-	mv {{ assets / 'tmp' / 'thumbnail01.png' }} {{ assets / 'thumbnail.png' }}
+		{{ assets / 'tmp' / '{n}.png' }}
+	mv {{ assets / 'tmp' / '1.png' }} {{ assets / 'thumbnail.png' }}
 	rm -rf {{ assets / 'tmp' }}
 	oxipng --opt max {{ assets / 'thumbnail.png' }}
 
