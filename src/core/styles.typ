@@ -14,10 +14,10 @@
 #let global() = body => {
   // TODO: do we provide the fonts within the scaffold?
   // set text(lang: "de", size: 11pt, font: "New Computer Modern", fallback: false)
-  set text(lang: "de", size: 11pt, font: "New Computer Modern")
+  set text(11pt, lang: "de", font: "New Computer Modern")
 
   // TODO: should this really be global?
-  set page(paper: "a4", margin: (inside: 4cm, outside: 3cm, top: 2.5cm, bottom: 2.5cm))
+  set page("a4", margin: (inside: 4cm, outside: 3cm, top: 2.5cm, bottom: 2.5cm))
 
   body
 }

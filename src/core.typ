@@ -86,8 +86,7 @@
       counter(footnote).update(0)
     },
     footer: context {
-      set align(right)
-      set align(left) if calc.even(here().page())
+      set align(if calc.even(here().page()) { left } else { right })
 
       if page.numbering != none {
         counter(page).display(page.numbering)
