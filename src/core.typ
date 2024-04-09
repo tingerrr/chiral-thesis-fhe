@@ -42,6 +42,11 @@
     (appendices,).flatten().join(pagebreak(weak: true))
   }
 
+  let bibliography-pages = if bibliography != none {
+    bibliography
+    pagebreak(weak: true)
+  }
+
   let acknowledgement-page = if acknowledgement != none {
     heading(level: 1)[Danksagung]
     acknowledgement
@@ -114,7 +119,7 @@
   set page(numbering: "I")
   context counter(page).update(counter(page).at(locate(<__ctf_marker>)).first() + 1)
 
-  bibliography
+  bibliography-pages
 
   if listings-position == end {
     listings-pages
