@@ -30,10 +30,15 @@
 
   // TODO: move rest to structure module
 
-  let listings-pages = structure.make-listings(
-    listings: listings,
-    force-empty: listings-force-empty,
-  )
+  let listings-pages = if listings != none and listings != () {
+    listings.map(listing => {
+      structure.make-listing(
+        target: listing.target,
+        title: listing.title,
+        force-empty: listings-force-empty,
+      )
+    }).join(pagebreak(weak: true))
+  }
 
   let appendices-page = if appendices != none {
     set heading(numbering: _utils.number-appendices, supplement: [Anhang])
@@ -103,6 +108,7 @@
   counter(page).update(1)
 
   structure.make-table-of-contents()
+
   if listings-position == start {
     listings-pages
   }
@@ -117,7 +123,7 @@
 
   // revert back to roman numbring, continuing where we left off
   set page(numbering: "I")
-  context counter(page).update(counter(page).at(locate(<__ctf_marker>)).first() + 1)
+  context counter(page).update(counter(page).at(<__ctf_marker>).first() + 1)
 
   bibliography-pages
 
