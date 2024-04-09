@@ -89,6 +89,7 @@
   )
 
   // TODO: reduce spacing of lines
+  // TODO: fix broken raw blocks leaving place elements on the wrong page
 
   // add outset line numbers
   show _std.raw.where(block: true): it => {
@@ -131,6 +132,9 @@
     kinds.map(k => counter(_std.figure.where(kind: k)).update(0)).join()
     it
   }
+
+  // allow all figures to break by default
+  show _std.figure: set block(breakable: true)
 
   // caption placement is generally below for unknown kinds and images, but above for tables,
   // listings and equations, while equations are generally not put into figures, they do have
