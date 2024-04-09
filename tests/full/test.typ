@@ -49,6 +49,8 @@
 #chapter[Chapter 3]
 #lorem(10) #quote(attribution: <knuth>)[A quote example]
 
+#lorem(10) @knuth[supplement]
+
 $
   E = m c^2
 $

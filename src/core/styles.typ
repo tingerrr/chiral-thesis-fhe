@@ -192,11 +192,15 @@
   // use alphanumeric citation style, not ieee
   set cite(style: "alphanumeric")
 
-  // show only the alphanumeric id of the citation in purple
-  show cite: it => {
-    show regex("\[|\]"): text.with(fill: black)
-    show regex("[^\[\]]"): text.with(fill: purple)
-    it
+  // show only the alphanumeric id of the citation in purple and don't ignore the supplement
+  show cite.where(form: "normal"): it => {
+    "["
+    text(purple, cite(form: "full", it.key))
+    if it.supplement != none {
+      [, ]
+      it.supplement
+    }
+    "]"
   }
 
   body
