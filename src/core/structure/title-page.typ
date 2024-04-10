@@ -17,31 +17,30 @@
   date: datetime.today(),
   id: "AI-1970-BA-999",
   kind: _kinds.report,
-  // fhe-logo: none,
 ) = {
-    set align(center + top)
-    stack(
-      align(right, image("/assets/images/logo-fhe.svg", width: 45%)),
-      5em,
-      text(16pt, font: "Latin Modern Sans", strong[
-        #kind.name \
-        #field
-      ]),
-      ..if _kinds.is-thesis(kind) { (1em, [Nr. #id]) },
-      5em,
-      text(32pt, font: "Latin Modern Sans", strong(title)),
-      3.4em,
-      text(16pt, strong(_authors.format-author(author, email: false))),
-      2.5em,
-      text(18pt)[Abgabedatum: #_utils.format-date(date)],
-    )
+  set align(center + top)
+  stack(
+    align(right, image("/assets/images/logo-fhe.svg", width: 45%)),
+    5em,
+    text(16pt, font: "Latin Modern Sans", strong[
+      #kind.name \
+      #field
+    ]),
+    ..if _kinds.is-thesis(kind) { (1em, [Nr. #id]) },
+    5em,
+    text(32pt, font: "Latin Modern Sans", strong(title)),
+    3.4em,
+    text(16pt, strong(_authors.format-author(author, email: false))),
+    2.5em,
+    text(18pt)[Abgabedatum: #_utils.format-date(date)],
+  )
 
-    if _kinds.is-thesis(kind) {
-      place(center + bottom, text(
-        18pt,
-        supervisors.map(_authors.format-author.with(email: false)).join(linebreak()),
-      ))
-    }
-
-    pagebreak(weak: true)
+  if _kinds.is-thesis(kind) {
+    place(center + bottom, text(
+      18pt,
+      supervisors.map(_authors.format-author.with(email: false)).join(linebreak()),
+    ))
   }
+
+  pagebreak(weak: true)
+}
