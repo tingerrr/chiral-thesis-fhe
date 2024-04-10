@@ -88,15 +88,14 @@
     radius: 0.5em,
   )
 
-  // TODO: reduce spacing of lines
-  // TODO: fix broken raw blocks leaving place elements on the wrong page
-
   // add outset line numbers
   show _std.raw.where(block: true): it => {
     show _std.raw.line: it => {
       let num = [#it.number]
-      place(left, dx: -(measure(num).width + 1.5em), align(right, num))
-      it.body
+      box(height: 1em, {
+        place(left, dx: -(measure(num).width + 1.5em), align(right, num))
+        it
+      })
     }
 
     it
