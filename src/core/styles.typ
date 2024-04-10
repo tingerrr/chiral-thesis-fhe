@@ -127,6 +127,9 @@
   // default to 1-1 numbering
   set _std.figure(numbering: n => _utils.chapter-relative-numbering("1-1", n))
 
+  // use no gap
+  set _std.figure(gap: 0pt)
+
   // reset all figure counters on chapters
   show _std.heading.where(level: 1): it => {
     kinds.map(k => counter(_std.figure.where(kind: k)).update(0)).join()
@@ -168,9 +171,9 @@
     numbering: n => _utils.chapter-relative-numbering("1.1", n),
   )
 
-  // captions are generally emph and light gray
+  // captions are generally emph and light gray and in a sans serif font
   show _std.figure.caption: emph
-  show _std.figure.caption: set text(fill: gray)
+  show _std.figure.caption: set text(fill: gray, font: "Latin Modern Sans")
 
   body
 }
