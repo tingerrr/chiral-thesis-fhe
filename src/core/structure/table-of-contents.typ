@@ -26,7 +26,4 @@
   show outline: set heading(numbering: none, outlined: false, offset: 0)
 
   outline(depth: 3, indent: auto)
-
-  // BUG: removing this seems to break the introspection for the page number of the next heading inside the toc
-  pagebreak(weak: true)
 }

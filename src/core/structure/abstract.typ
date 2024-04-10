@@ -13,5 +13,4 @@
 
   heading(level: 1, title)
   par(justify: true, body)
-  pagebreak(weak: true)
 }

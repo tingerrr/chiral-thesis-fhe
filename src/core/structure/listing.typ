@@ -7,6 +7,5 @@
     show outline: set heading(numbering: none, outlined: true, offset: 0)
 
     outline(target: figure.where(kind: target), title: title)
-    // pagebreak(weak: true)
   }
 }

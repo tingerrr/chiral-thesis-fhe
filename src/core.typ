@@ -49,7 +49,6 @@
 
   let bibliography-pages = if bibliography != none {
     bibliography
-    pagebreak(weak: true)
   }
 
   let acknowledgement-page = if acknowledgement != none {
@@ -70,9 +69,9 @@
   structure.make-title-page(..meta)
 
   if abstracts != none {
-    for abstract in abstracts {
+    abstracts.map(abstract => {
       structure.make-abstract(..abstract)
-    }
+    }).join(pagebreak(weak: true))
   }
 
   set page(
@@ -95,12 +94,14 @@
   )
 
   // TODO: make configurable
-  show: styles.heading()
   show: styles.table()
   show: styles.raw(theme: "/assets/themes/gruvbox-light.tmTheme", fill: rgb("#f9f5d7"))
-  show: styles.figure(kinds: listings.map(l => l.target))
   show: styles.math()
+  show: styles.figure(kinds: listings.map(l => l.target))
   show: styles.bibliography()
+
+  // NOTE: this must currently stay below the figure syles to ensure the fully realized level 1 headings start with their weak pagebreak.
+  show: styles.heading()
 
   // start with roman numbering after the prelude
   set page(numbering: "I")
