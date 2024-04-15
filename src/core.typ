@@ -44,7 +44,7 @@
     set heading(numbering: _utils.number-appendices, supplement: [Anhang])
 
     heading(level: 1)[Anhang]
-    (appendices,).flatten().join(pagebreak(weak: true))
+    appendices.join(pagebreak(weak: true))
   }
 
   let bibliography-pages = if bibliography != none {
