@@ -15,7 +15,6 @@
   mono: "DejaVu Sans Mono",
 )
 
-// TODO: static positioning on the title page
 // TODO: arg validation
 // TODO: provide good defaults
 #let doc(
@@ -38,41 +37,14 @@
     body
   }
 
-  // TODO: move rest to structure module
-
   let listings-pages = if listings != none and listings != () {
     listings.map(listing => {
       structure.make-listing(
-        target: listing.target,
-        title: listing.title,
         force-empty: listings-force-empty,
+        ..listing,
       )
     }).join(pagebreak(weak: true))
   }
-
-  let appendices-page = if appendices != none {
-    set heading(numbering: _utils.number-appendices, supplement: [Anhang])
-
-    heading(level: 1)[Anhang]
-    appendices.join(pagebreak(weak: true))
-  }
-
-  let bibliography-pages = if bibliography != none {
-    bibliography
-  }
-
-  let acknowledgement-page = if acknowledgement != none {
-    heading(level: 1)[Danksagung]
-    acknowledgement
-  }
-
-  let affidavit-page = structure.make-affidavit(
-    title: meta.title,
-    author: meta.author,
-    date: meta.date,
-    body: affidavit,
-    kind: meta.kind,
-  )
 
   show: styles.global(_fonts: _fonts)
 
@@ -135,18 +107,32 @@
   set page(numbering: "I")
   context counter(page).update(counter(page).at(<__ctf_marker>).first() + 1)
 
-  bibliography-pages
+  // TODO: is there any need for specific handling like with the other struture elements? the if is currently redundant
+  if bibliography != none {
+    bibliography
+  }
 
   if listings-position == end {
     listings-pages
   }
-  appendices-page
 
-  if kinds.is-thesis(meta.kind) {
-    acknowledgement-page
+  if appendices != none {
+    appendices.map(appendix => {
+      structure.make-appendix(body: appendix)
+    }).join(pagebreak(weak: true))
   }
 
-  if kinds.is-thesis(meta.kind) {
-    affidavit-page
+  if kinds.is-thesis(meta.kind) and acknowledgement != none {
+    structure.make-acknowledgement(body: acknowledgement)
+  }
+
+  if kinds.is-thesis(meta.kind) and affidavit != none {
+    structure.make-affidavit(
+      title: meta.title,
+      author: meta.author,
+      date: meta.date,
+      body: affidavit,
+      kind: meta.kind,
+    )
   }
 }

@@ -17,8 +17,8 @@
 
   set heading(numbering: none, outlined: true, offset: 0)
 
+  heading(level: 1)[Eigenständigkeitserklärung]
 	if body == auto {
-    heading(level: 1)[Eigenständigkeitserklärung]
     [
       Ich, #_authors.format-author(author, titles: false, email: false), versichere hiermit, dass ich die vorliegende #kind.name mit dem Titel
       #align(center, emph(title))
@@ -29,8 +29,7 @@
       Erfurt, #_utils.format-date(date)
     ]
     _authors.format-author(author, titles: false, email: false)
-  } else if type(independence) == content {
-    heading(level: 1)[Eigenständigkeitserklärung]
-    independence
+  } else {
+    body
   }
 }
