@@ -11,10 +11,11 @@
   bibliography: bibliography,
 )
 
-#let global() = body => {
+#let global(
+  _fonts: (:),
+) = body => {
   // TODO: do we provide the fonts within the scaffold?
-  // set text(lang: "de", size: 11pt, font: "New Computer Modern", fallback: false)
-  set text(11pt, lang: "de", font: "New Computer Modern")
+  set text(lang: "de", size: 11pt, font: _fonts.serif, fallback: false)
 
   // TODO: should this really be global?
   set page("a4", margin: (inside: 4cm, outside: 3cm, top: 2.5cm, bottom: 2.5cm))
@@ -22,7 +23,9 @@
   body
 }
 
-#let content() = body => {
+#let content(
+  _fonts: (:),
+) = body => {
   // number headings up to depth 4
   show _std.heading.where(level: 1): set _std.heading(numbering: "1.1")
   show _std.heading.where(level: 2): set _std.heading(numbering: "1.1")
@@ -57,7 +60,7 @@
   body
 }
 
-#let heading() = body => {
+#let heading(_fonts: (:)) = body => {
   // add pagebreaks on chapters
   show _std.heading.where(level: 1): it => pagebreak(weak: true) + it
 
@@ -68,7 +71,7 @@
 
   // other mandated style rules
   show _std.heading: set block(above: 1.4em, below: 1.8em)
-  show _std.heading: set text(font: "Latin Modern Sans")
+  show _std.heading: set text(font: _fonts.sans)
 
   // show outline headings
   show outline: set _std.heading(outlined: true)
@@ -76,9 +79,12 @@
   body
 }
 
-#let raw(theme: auto, fill: none) = body => {
+#let raw(theme: auto, fill: none, _fonts: (:)) = body => {
   // we may set a theme
   set _std.raw(theme: theme) if theme != auto
+
+  // use the specified mono font
+  show _std.raw: set text(font: _fonts.mono)
 
   // block raw is a rounded block of full width
   show _std.raw.where(block: true): set block(
@@ -122,7 +128,7 @@
   body
 }
 
-#let figure(kinds: (image, raw, table)) = body => {
+#let figure(kinds: (image, raw, table), _fonts: (:)) = body => {
   // default to 1-1 numbering
   set _std.figure(numbering: n => _utils.chapter-relative-numbering("1-1", n))
 
@@ -172,7 +178,7 @@
 
   // captions are generally emph and light gray and in a sans serif font
   show _std.figure.caption: emph
-  show _std.figure.caption: set text(fill: gray, font: "Latin Modern Sans")
+  show _std.figure.caption: set text(fill: gray, font: _fonts.sans)
 
   body
 }
