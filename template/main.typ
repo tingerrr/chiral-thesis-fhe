@@ -7,7 +7,7 @@
     title: [Mustertitel],
     // subtitle: [],
     author: "Max Mustermann",
-    date: datetime.today(),
+    date: datetime(year: 1970, month: 01, day: 01),
     field: [Angewandte Informatik],
   ),
   listings: (

@@ -20,7 +20,7 @@
   subtitle: none,
   author: "Musterstudent, Max",
   field: [Fachbereich],
-  date: datetime.today(),
+  date: datetime(year: 1970, month: 01, day: 01),
 ) = {
   (
     kind: kinds.report,
@@ -44,7 +44,7 @@
   subtitle: none,
   author: "Musterstudent, Max",
   field: [Fachbereich],
-  date: datetime.today(),
+  date: datetime(year: 1970, month: 01, day: 01),
 
   supervisors: (
     "Prof. Dr. Max Mustermann",

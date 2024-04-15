@@ -14,7 +14,7 @@
     "Prof. Dr. Maxine Musterfrau",
   ),
   field: "Angewandte Informatik",
-  date: datetime.today(),
+  date: datetime(year: 1970, month: 01, day: 01),
   id: "AI-1970-BA-999",
   kind: _kinds.report,
 ) = {

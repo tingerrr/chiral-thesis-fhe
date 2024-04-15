@@ -6,7 +6,7 @@
 #let make-affidavit(
 	title: "Mustertitel",
 	author: "Max, Mustermann",
-  date: datetime.today(),
+  date: datetime(year: 1970, month: 01, day: 01),
 	body: auto,
 	kind: _kinds.report,
 ) = {
