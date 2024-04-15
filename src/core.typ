@@ -7,7 +7,9 @@
 
 // TODO: lift this into a styling context kind of dictionary.
 #let _fonts = (
-  serif: "New Computer Modern",
+  // TODO: ncm seems to have issues with some symbols like list markers
+  // serif: "New Computer Modern",
+  serif: "Linux Libertine",
   // TODO: provide ncms, this is currently not included
   // #let sans = "New Computer Modern Sans"
   sans: "Latin Modern Sans",
