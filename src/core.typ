@@ -54,7 +54,7 @@
 
   if abstracts != none {
     abstracts.map(abstract => {
-      structure.make-abstract(..abstract)
+      structure.make-abstract(..abstract, _fonts: _fonts)
     }).join(pagebreak(weak: true))
   }
 
