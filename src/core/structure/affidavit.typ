@@ -4,11 +4,11 @@
 #import "/src/utils.typ" as _utils
 
 #let make-affidavit(
-	title: "Mustertitel",
-	author: "Max, Mustermann",
+  title: "Mustertitel",
+  author: "Max, Mustermann",
   date: datetime(year: 1970, month: 01, day: 01),
-	body: auto,
-	kind: _kinds.report,
+  body: auto,
+  kind: _kinds.report,
 ) = {
   _authors.assert-author-valid(author)
   _kinds.assert-kind-valid(kind)
@@ -18,7 +18,7 @@
   set heading(numbering: none, outlined: true, offset: 0)
 
   heading(level: 1)[Eigenständigkeitserklärung]
-	if body == auto {
+  if body == auto {
     [
       Ich, #_authors.format-author(author, titles: false, email: false), versichere hiermit, dass ich die vorliegende #kind.name mit dem Titel
       #align(center, emph(title))

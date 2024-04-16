@@ -1,7 +1,7 @@
 #import "/src/utils.typ" as _utils
 
 #let make-appendix(
-	body: lorem(100),
+  body: lorem(100),
 ) = {
   set heading(numbering: _utils.number-appendices, supplement: [Anhang])
 
