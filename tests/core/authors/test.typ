@@ -1,5 +1,7 @@
 #import "/src/core/authors.typ"
 
+#set page(height: 1cm, width: 1cm)
+
 //
 // parsing
 //

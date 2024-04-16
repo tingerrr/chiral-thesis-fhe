@@ -91,14 +91,17 @@
   set page(numbering: "I")
   counter(page).update(1)
 
-  structure.make-table-of-contents()
+  structure.make-table-of-contents(
+    appendix-marker: <__ctf-appendix-marker>,
+    _fonts: _fonts,
+  )
 
   if listings-position == start {
     listings-pages
   }
 
   // an anchor to retreive the page number we left off with for later
-  [#metadata(()) <__ctf_marker>]
+  _utils.marker("__ctf-front-matter")
 
   // use arabic numbering
   set page(numbering: "1")
@@ -107,7 +110,7 @@
 
   // revert back to roman numbring, continuing where we left off
   set page(numbering: "I")
-  context counter(page).update(counter(page).at(<__ctf_marker>).first() + 1)
+  context counter(page).update(counter(page).at(<__ctf-front-matter>).first() + 1)
 
   // TODO: is there any need for specific handling like with the other struture elements? the if is currently redundant
   if bibliography != none {
@@ -119,9 +122,12 @@
   }
 
   if appendices != none {
+    counter(heading).update(0)
+    _utils.marker("__ctf-appendix-marker")
     appendices.map(appendix => {
       structure.make-appendix(body: appendix)
     }).join(pagebreak(weak: true))
+    _utils.marker("__ctf-appendix-marker")
   }
 
   if kinds.is-thesis(meta.kind) and acknowledgement != none {

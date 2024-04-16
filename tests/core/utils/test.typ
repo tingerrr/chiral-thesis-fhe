@@ -1,10 +1,15 @@
-#import "/src/utils/token.typ"
+#import "/src/utils.typ"
 
-// token-eat
-#assert.eq(token.eat("Foo Bar Baz", "Bar"), (none, "Foo Bar Baz"))
-#assert.eq(token.eat("Foo Bar Baz", "Foo"), ("Foo", " Bar Baz"))
-#assert.eq(token.eat("Foo Bar Baz", regex("Fo+")), ("Foo", " Bar Baz"))
+#set page(height: 1cm, width: 1cm)
 
-// token-eat-any
-#assert.eq(token.eat-any("Foo Bar", ("Bar", "Baz")), (none, "Foo Bar"))
-#assert.eq(token.eat-any("Foo Bar", ("Foo", "Bar")), ("Foo", " Bar"))
+#context {
+  assert(utils.is-within-markers(<inside>, <marker>))
+  assert(not utils.is-within-markers(<outside>, <marker>))
+}
+
+#metadata(()) <outside>
+#pagebreak()
+#metadata(()) <marker>
+#pagebreak()
+#metadata(()) <inside>
+#metadata(()) <marker>
