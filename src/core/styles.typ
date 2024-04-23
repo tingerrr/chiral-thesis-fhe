@@ -211,5 +211,17 @@
     "]"
   }
 
+  // apply the same style within the bibliography back references
+  show _std.bibliography: it => {
+    let re = regex("\[(\w{2,3}\+?\d{2})\]")
+    show re: it => {
+      let m = it.text.match(re)
+      "["
+      text(purple, m.captures.first())
+      "]"
+    }
+    it
+  }
+
   body
 }
