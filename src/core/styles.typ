@@ -200,6 +200,8 @@
   // use alphanumeric citation style, not ieee
   set cite(style: "alphanumeric")
 
+  // BUG: this prevents the formation of cite groups
+
   // show only the alphanumeric id of the citation in purple and don't ignore the supplement
   show cite.where(form: "normal"): it => {
     "["
