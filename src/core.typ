@@ -22,6 +22,7 @@
 #let doc(
   // kind: kinds.report(),
   kind: (:),
+  draft: true,
   abstracts: none,
   bibliography: none,
   listings: (),
@@ -49,6 +50,12 @@
   }
 
   show: styles.global(_fonts: _fonts)
+
+  set page(background: {
+    set align(center + horizon)
+    set text(gray.lighten(85%), 122pt)
+    rotate(-45deg)[Entwurf]
+  }) if draft
 
   structure.make-title-page(..meta, _fonts: _fonts)
 
