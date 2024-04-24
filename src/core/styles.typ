@@ -27,7 +27,7 @@
   _fonts: (:),
 ) = body => {
   // number headings up to depth 4
-  show _std.heading.where(level: 1): set _std.heading(numbering: "1.1")
+  show _std.heading.where(level: 1): set _std.heading(numbering: "1.1", supplement: [Kapitel])
   show _std.heading.where(level: 2): set _std.heading(numbering: "1.1")
   show _std.heading.where(level: 3): set _std.heading(numbering: "1.1")
   show _std.heading.where(level: 4): set _std.heading(numbering: "1.1")

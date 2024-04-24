@@ -8,7 +8,7 @@
 ) = {
   import "core.typ" as _core
 
-  let chapter = heading.with(level: 1)
+  let chapter = heading.with(level: 1, supplement: [Kapitel])
 
   // used in quotes
   let q(body) = [\[#body\]]
