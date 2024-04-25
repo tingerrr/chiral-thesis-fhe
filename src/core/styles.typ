@@ -34,9 +34,9 @@
 
   // turn on justification eveyrwhere except for specific elements
   set par(justify: true)
-  show list: set par(justify: false)
-  show enum: set par(justify: false)
-  show terms: set par(justify: false)
+  // show list: set par(justify: false)
+  // show enum: set par(justify: false)
+  // show terms: set par(justify: false)
   show table: set par(justify: false)
   show _std.raw.where(block: true): set par(justify: false)
 
