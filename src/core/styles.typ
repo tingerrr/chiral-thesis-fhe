@@ -122,7 +122,7 @@
   // the page header gets strong text and gets the only hline
   show _std.table.cell.where(y: 0): strong
   set _std.table(stroke: (_, y) => if y == 0 {
-    (bottom: 1pt)
+    (bottom: 0.5pt)
   })
 
   body
