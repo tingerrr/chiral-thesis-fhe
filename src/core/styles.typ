@@ -79,20 +79,27 @@
   body
 }
 
-#let raw(theme: auto, fill: none, _fonts: (:)) = body => {
+#let raw(theme: auto, fill: none, plain: false, _fonts: (:)) = body => {
   // we may set a theme
   set _std.raw(theme: theme) if theme != auto
 
   // use the specified mono font
   show _std.raw: set text(font: _fonts.mono)
 
-  // block raw is a rounded block of full width
-  show _std.raw.where(block: true): set block(
-    fill: fill,
+  // block raw takes full width
+  let block-args = (
     width: 100%,
     inset: 1em,
-    radius: 0.5em,
   )
+
+  // if style is plain simply draw strokes above and blow, otherwise add rounded fill
+  block-args = block-args + if plain {
+    (stroke: (top: black + 0.5pt, bottom: black + 0.5pt))
+  } else {
+    (fill: fill, radius: 0.5em)
+  }
+
+  show _std.raw.where(block: true): set block(..block-args)
 
   // add outset line numbers
   show _std.raw.where(block: true): it => {
@@ -108,12 +115,17 @@
   }
 
   // inline raw looks similar to block raw, but extends out of the line in y direction
-  show _std.raw.where(block: false): box.with(
-    fill: fill,
-    inset: (x: 0.25em),
-    outset: (y: 0.25em),
-    radius: 0.25em,
-  )
+  show _std.raw.where(block: false): it => if plain {
+    it
+  } else {
+    box(
+      fill: fill,
+      inset: (x: 0.25em),
+      outset: (y: 0.25em),
+      radius: 0.25em,
+      it,
+    )
+  }
 
   body
 }
