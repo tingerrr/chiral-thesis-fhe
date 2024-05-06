@@ -5,7 +5,13 @@
   let subpar-args = (
     numbering: n => _utils.chapter-relative-numbering("1-1", n),
     numbering-sub-ref: (n, m) => _utils.chapter-relative-numbering("1-1a", n, m),
-    show-sub-caption: (_, it) => emph(it),
+    show-sub-caption: (n, it) => grid(
+      columns: (auto, 1fr),
+      gutter: 0.5em,
+      align: left + top,
+      n,
+      emph(it.body),
+    ),
   )
 
   (
