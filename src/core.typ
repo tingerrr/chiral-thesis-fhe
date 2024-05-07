@@ -25,9 +25,9 @@
   draft: true,
   abstracts: none,
   bibliography: none,
-  listings: (),
-  listings-position: end,
-  listings-force-empty: false,
+  outlines: (),
+  outlines-position: end,
+  outlines-force-empty: false,
   appendices: none,
   acknowledgement: none,
   affidavit: auto,
@@ -40,16 +40,17 @@
     body
   }
 
-  let listings-pages = if listings != none and listings != () {
-    listings.map(listing => {
-      structure.make-listing(
-        force-empty: listings-force-empty,
-        ..listing,
+  let outlines-pages = if outlines != none and outlines != () {
+    outlines.map(outline => {
+      structure.make-outline(
+        force-empty: outlines-force-empty,
+        ..outline,
       )
     }).join(pagebreak(weak: true))
   }
 
   show: styles.global(_fonts: _fonts)
+  show: styles.outline(_fonts: _fonts)
 
   set page(background: {
     set align(center + horizon)
@@ -93,7 +94,7 @@
     _fonts: _fonts,
   )
   show: styles.math()
-  show: styles.figure(kinds: listings.map(l => l.target), _fonts: _fonts)
+  show: styles.figure(kinds: outlines.map(l => l.target), _fonts: _fonts)
   show: styles.bibliography()
 
   // NOTE: this must currently stay below the figure syles to ensure the fully realized level 1 headings start with their weak pagebreak.
@@ -108,8 +109,8 @@
     _fonts: _fonts,
   )
 
-  if listings-position == start {
-    listings-pages
+  if outlines-position == start {
+    outlines-pages
   }
 
   // an anchor to retreive the page number we left off with for later
@@ -129,8 +130,8 @@
     bibliography
   }
 
-  if listings-position == end {
-    listings-pages
+  if outlines-position == end {
+    outlines-pages
   }
 
   if appendices != none {

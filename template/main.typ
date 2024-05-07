@@ -10,13 +10,13 @@
     date: datetime(year: 1970, month: 01, day: 01),
     field: [Angewandte Informatik],
   ),
-  listings: (
+  outlines: (
     // you can remove any of these if you don't need them
     (target: image, title: [Abbildungsverzeichnis]),
     (target: table, title: [Tabellenverzeichnis]),
     (target: raw,   title: [Listingverzeichnis]),
   ),
-  listings-position: start,
+  outlines-position: start,
   bibliography: bibliography("/bibliography.yaml"),
 )
 

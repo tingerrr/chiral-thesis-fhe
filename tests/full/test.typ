@@ -9,12 +9,12 @@
   abstracts: (
     (title: [Abstract], body: lorem(100)),
   ),
-  listings: (
+  outlines: (
     (target: image, title: [Abbildungsverzeichnis]),
     (target: table, title: [Tabellenverzeichnis]),
     (target: raw, title: [Listingverzeichnis]),
   ),
-  listings-position: start,
+  outlines-position: start,
   bibliography: bibliography("/tests/bib.yaml"),
 )
 

@@ -26,14 +26,7 @@
         it.page
       })
     } else {
-      link(it.element.location(), it.body)
-      [ ]
-      box(width: 1fr, repeat("  .  "))
-      [ ]
-      box(
-        width: measure[999].width,
-        align(right, it.page),
-      )
+      it
     }
   }
 

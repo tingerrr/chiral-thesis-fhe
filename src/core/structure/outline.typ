@@ -1,4 +1,4 @@
-#let make-listing(
+#let make-outline(
   target: image,
   title: auto,
   force-empty: false,
