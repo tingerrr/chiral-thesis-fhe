@@ -60,8 +60,9 @@
   show table: set par(justify: false)
   show _std.raw.where(block: true): set par(justify: false)
 
+  // NOTE: this currently interferes due to a lack style rules revoking support
   // show links in eastern
-  show link: text.with(fill: eastern)
+  // show link: text.with(fill: eastern)
 
   // always use quotes
   show quote.where(block: true): set quote(quotes: true)
