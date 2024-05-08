@@ -1,9 +1,18 @@
 #import "prelude/subpar.typ"
 
 #let (
+  // helper funcitons
   chapter,
   q,
+
+  // glossarium re-exports
+  gls,
+  glspl,
+
+  // template
   doc,
+
+  // kinds
   report,
   bachelors-thesis,
   masters-thesis,
@@ -19,6 +28,8 @@
   (
     chapter,
     q,
+    _utils._pkg.glossarium.gls,
+    _utils._pkg.glossarium.glspl,
     _core.doc,
     _core.kinds.report,
     _core.kinds.thesis.with(kind: _core.kinds.kinds.thesis-bachelor),

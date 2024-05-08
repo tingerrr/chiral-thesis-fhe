@@ -28,6 +28,7 @@
   outlines: (),
   outlines-position: end,
   outlines-force-empty: false,
+  glossary: none,
   appendices: none,
   acknowledgement: none,
   affidavit: auto,
@@ -51,6 +52,24 @@
 
   show: styles.global(_fonts: _fonts)
   show: styles.outline(_fonts: _fonts)
+
+  // TODO: propose this as the default gls supplement behavior or simply fork glossarium if there are more problems
+  // show: _utils._pkg.glossarium.make-glossary
+  show ref: it => {
+    let is-figure = it.element != none and it.element.func() == figure
+
+    if is-figure and it.element.kind == _utils._pkg.glossarium.__glossarium_figure {
+      let extra = if it.supplement == [s] {
+        (suffix: it.supplement)
+      } else if it.supplement not in (none, auto, []) {
+        (display: it.supplement)
+      }
+
+      _utils._pkg.glossarium.gls(str(it.target), ..extra)
+    } else {
+      it
+    }
+  }
 
   set page(background: {
     set align(center + horizon)
@@ -132,6 +151,10 @@
 
   if outlines-position == end {
     outlines-pages
+  }
+
+  if glossary != none {
+    structure.make-glossary(entries: glossary, _fonts: _fonts)
   }
 
   if appendices != none {
