@@ -17,6 +17,11 @@
   mono: "DejaVu Sans Mono",
 )
 
+#let _markers = (
+  front-matter: <__ctf:marker:front-matter>,
+  appendix: <__ctf:marker:appendix>,
+)
+
 // TODO: arg validation
 // TODO: provide good defaults
 #let doc(
@@ -124,7 +129,7 @@
   counter(page).update(1)
 
   structure.make-table-of-contents(
-    appendix-marker: <__ctf-appendix-marker>,
+    appendix-marker: _markers.appendix,
     _fonts: _fonts,
   )
 
@@ -133,7 +138,7 @@
   }
 
   // an anchor to retreive the page number we left off with for later
-  _utils.marker("__ctf-front-matter")
+  _utils.marker(_markers.front-matter)
 
   // use arabic numbering
   set page(numbering: "1")
@@ -142,7 +147,7 @@
 
   // revert back to roman numbring, continuing where we left off
   set page(numbering: "I")
-  context counter(page).update(counter(page).at(<__ctf-front-matter>).first() + 1)
+  context counter(page).update(counter(page).at(_markers.front-matter).first() + 1)
 
   // TODO: is there any need for specific handling like with the other struture elements? the if is currently redundant
   if bibliography != none {
@@ -159,11 +164,11 @@
 
   if appendices != none {
     counter(heading).update(0)
-    _utils.marker("__ctf-appendix-marker")
+    _utils.marker(_markers.appendix)
     appendices.map(appendix => {
       structure.make-appendix(body: appendix)
     }).join(pagebreak(weak: true))
-    _utils.marker("__ctf-appendix-marker")
+    _utils.marker(_markers.appendix)
   }
 
   if kinds.is-thesis(meta.kind) and acknowledgement != none {

@@ -11,7 +11,13 @@
   default()
 }
 
-#let marker(name) = [#metadata(())#label(name)]
+#let marker(name) = if type(name) == str {
+  [#metadata(())#label(name)]
+} else if type(name) == label {
+  [#metadata(())#name]
+} else {
+  panic(_pkg.oxifmt.strfmt("Can't use `{}` as a marker", name))
+}
 
 #let none-or = sentinel-or.with(none)
 #let auto-or = sentinel-or.with(auto)
