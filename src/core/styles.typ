@@ -99,27 +99,15 @@
   body
 }
 
-#let raw(theme: auto, fill: none, plain: false, _fonts: (:)) = body => {
-  // we may set a theme
-  set _std.raw(theme: theme) if theme != auto
-
+#let raw(_fonts: (:)) = body => {
   // use the specified mono font
   show _std.raw: set text(font: _fonts.mono)
 
-  // block raw takes full width
-  let block-args = (
+  show _std.raw.where(block: true): set block(
     width: 100%,
     inset: 1em,
+    stroke: (top: black + 0.5pt, bottom: black + 0.5pt),
   )
-
-  // if style is plain simply draw strokes above and blow, otherwise add rounded fill
-  block-args = block-args + if plain {
-    (stroke: (top: black + 0.5pt, bottom: black + 0.5pt))
-  } else {
-    (fill: fill, radius: 0.5em)
-  }
-
-  show _std.raw.where(block: true): set block(..block-args)
 
   // add outset line numbers
   show _std.raw.where(block: true): it => {
@@ -134,18 +122,16 @@
     it
   }
 
-  // inline raw looks similar to block raw, but extends out of the line in y direction
-  show _std.raw.where(block: false): it => if plain {
-    it
-  } else {
-    box(
-      fill: fill,
-      inset: (x: 0.25em),
-      outset: (y: 0.25em),
-      radius: 0.25em,
-      it,
-    )
-  }
+  // TODO: for as long as we can't remove styles easilty, this will make fletcher diagrams look horrible
+
+  // inline raw gets a faint light gray background box to be easier to distinguish
+  // show _std.raw.where(block: false): it => box(
+  //   fill: gray.lighten(75%),
+  //   inset: (x: 0.25em),
+  //   outset: (y: 0.25em),
+  //   radius: 0.25em,
+  //   it,
+  // )
 
   body
 }
