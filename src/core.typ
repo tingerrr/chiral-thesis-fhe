@@ -1,6 +1,6 @@
 #import "core/authors.typ"
 #import "core/kinds.typ"
-#import "core/structure.typ"
+#import "core/component.typ"
 #import "core/styles.typ"
 
 #import "/src/utils.typ" as _utils
@@ -48,7 +48,7 @@
 
   let outlines-pages = if outlines != none and outlines != () {
     outlines.map(outline => {
-      structure.make-outline(
+      component.make-outline(
         force-empty: outlines-force-empty,
         ..outline,
       )
@@ -82,11 +82,11 @@
     rotate(-45deg)[Entwurf]
   }) if draft
 
-  structure.make-title-page(..meta, _fonts: _fonts)
+  component.make-title-page(..meta, _fonts: _fonts)
 
   if abstracts != none {
     abstracts.map(abstract => {
-      structure.make-abstract(..abstract, _fonts: _fonts)
+      component.make-abstract(..abstract, _fonts: _fonts)
     }).join(pagebreak(weak: true))
   }
 
@@ -123,7 +123,7 @@
   set page(numbering: "I")
   counter(page).update(1)
 
-  structure.make-table-of-contents(
+  component.make-table-of-contents(
     appendix-marker: _markers.appendix,
     _fonts: _fonts,
   )
@@ -154,24 +154,24 @@
   }
 
   if glossary != none {
-    structure.make-glossary(entries: glossary, _fonts: _fonts)
+    component.make-glossary(entries: glossary, _fonts: _fonts)
   }
 
   if appendices != none {
     counter(heading).update(0)
     _utils.marker(_markers.appendix)
     appendices.map(appendix => {
-      structure.make-appendix(body: appendix)
+      component.make-appendix(body: appendix)
     }).join(pagebreak(weak: true))
     _utils.marker(_markers.appendix)
   }
 
   if kinds.is-thesis(meta.kind) and acknowledgement != none {
-    structure.make-acknowledgement(body: acknowledgement)
+    component.make-acknowledgement(body: acknowledgement)
   }
 
   if kinds.is-thesis(meta.kind) and affidavit != none {
-    structure.make-affidavit(
+    component.make-affidavit(
       title: meta.title,
       author: meta.author,
       date: meta.date,
