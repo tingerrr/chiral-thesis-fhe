@@ -11,7 +11,9 @@
         let is-appendix = (
           appendix-marker != none
             and query(appendix-marker).len() != 0
-            and _utils.is-within-markers(it.element, appendix-marker)
+            and false
+            // BUG: somehow only one appendix marker is found despite `doc` placing two
+            // and _utils.is-within-markers(it.element, appendix-marker)
         )
 
         let body = if is-appendix and it.element.numbering != none {
