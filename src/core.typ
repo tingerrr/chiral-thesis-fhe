@@ -111,7 +111,10 @@
 
   // TODO: make configurable
   show: styles.table()
-  show: styles.raw(_fonts: _fonts)
+  show: styles.raw(
+    theme: "/assets/themes/gruvbox-light.tmTheme",
+    _fonts: _fonts,
+  )
   show: styles.math()
   show: styles.figure(kinds: outlines.map(l => l.target), _fonts: _fonts)
   show: styles.bibliography()

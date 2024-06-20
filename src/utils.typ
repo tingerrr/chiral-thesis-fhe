@@ -61,6 +61,7 @@
   true
 }
 
+// BUG: this and its usages can't respect appendix numbering beacuse the pattern doesn't react to the styles to synthesize it's pattern
 #let chapter-relative-numbering(numbering, ..args) = {
   (_std.numbering)(numbering, counter(heading).get().first(), ..args)
 }

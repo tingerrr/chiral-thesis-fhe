@@ -99,7 +99,9 @@
   body
 }
 
-#let raw(_fonts: (:)) = body => {
+#let raw(theme: none, _fonts: (:)) = body => {
+  set _std.raw(theme: theme) if theme != none
+
   // use the specified mono font
   show _std.raw: set text(font: _fonts.mono)
 
