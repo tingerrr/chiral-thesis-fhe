@@ -47,6 +47,7 @@
   }
 
   let outlines-pages = if outlines != none and outlines != () {
+    // TODO: the example document shows these all on their own page, but without rule revoking removing the heading pagebreak is extremely tedious
     outlines.map(outline => {
       component.make-outline(
         force-empty: outlines-force-empty,
