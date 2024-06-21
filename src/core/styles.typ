@@ -173,17 +173,19 @@
   show _std.figure: it => {
     let body = block(width: 100%, {
       if _std.figure.caption.position == top and it.caption != none {
-        it.caption
+        align(left, it.caption)
         v(it.gap)
       }
       align(center, it.body)
       if _std.figure.caption.position == bottom and it.caption != none {
         v(it.gap)
-        it.caption
+        align(left, it.caption)
       }
     })
 
-    if it.placement != none {
+    if it.placement == auto {
+      place(it.placement, float: true, body)
+    } else if it.placement != none {
       place(it.placement, body)
     } else {
       body
