@@ -4,8 +4,6 @@
 #import "utils/assert.typ"
 #import "utils/state.typ"
 
-#let _std = (numbering: numbering)
-
 #let chapter = heading.with(level: 1, supplement: [Kapitel])
 
 #let smart-caption(short, long, _state: state.outline) = context if _state.get() {
@@ -37,7 +35,7 @@
 
 // BUG: this and its usages can't respect appendix numbering beacuse the pattern doesn't react to the styles to synthesize it's pattern
 #let chapter-relative-numbering(numbering, ..args) = {
-  (_std.numbering)(numbering, counter(heading).get().first(), ..args)
+  std.numbering(numbering, counter(heading).get().first(), ..args)
 }
 
 #let date-time-en-to-de = (
