@@ -1,10 +1,6 @@
 #import "/src/packages.typ" as _pkg
 #import "/src/utils.typ" as _utils
 
-#let _std = (
-  link: link,
-)
-
 #let _eat-title(value) = {
   let rest = value.trim(at: start)
 
@@ -260,7 +256,7 @@
     // this will convert the output into content
     if link {
       " "
-      (_std.link)("mailto:" + author.email, author.email)
+      std.link("mailto:" + author.email, author.email)
     } else {
       " <"
       author.email
