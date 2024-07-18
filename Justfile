@@ -26,6 +26,13 @@ alias tt := typst-test
 typst-test *args:
 	typst-test {{ args }}
 
+# compile and optimize assets
+assets:
+	typst compile \
+		{{ assets / 'images' / 'draft-watermark.typ' }} \
+		{{ assets / 'images' / 'draft-watermark.svg' }}
+	oxipng --opt max --recursive {{ assets / 'images' }}
+
 # compile the manual and exmaples
 doc: install
 	typst compile {{ docs / 'manual.typ' }} {{ docs / 'manual.pdf' }}
@@ -35,9 +42,9 @@ doc: install
 		--root {{ template }} \
 		{{ template / 'main.typ' }} \
 		{{ assets / 'tmp' / '{n}.png' }}
-	mv {{ assets / 'tmp' / '1.png' }} {{ assets / 'thumbnail.png' }}
+	mv {{ assets / 'tmp' / '1.png' }} {{ assets / 'images' / 'thumbnail.png' }}
 	rm -rf {{ assets / 'tmp' }}
-	oxipng --opt max {{ assets / 'thumbnail.png' }}
+	oxipng --opt max {{ assets / 'images' / 'thumbnail.png' }}
 
 # test the scaffolding
 test-scaffold: install && uninstall

@@ -80,7 +80,8 @@
   set page(background: {
     set align(center + horizon)
     set text(gray.lighten(85%), 122pt)
-    rotate(-45deg)[Entwurf]
+    // TODO: ensure this is still unselectable when selectable text in SVG export is eventually added
+    rotate(-45deg, image("/assets/images/draft-watermark.svg"))
   }) if draft
 
   component.make-title-page(..meta, _fonts: _fonts)
