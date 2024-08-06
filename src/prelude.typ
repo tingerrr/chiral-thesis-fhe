@@ -1,9 +1,12 @@
+// NOTE: these are largely used for styling configuration which will be done
+// with set rules once custom types exist
 #import "prelude/subpar.typ"
 
 #let (
-  // helper funcitons
+  // helper functions
   chapter,
   q,
+  i18n,
 
   // glossarium re-exports
   gls,
@@ -20,14 +23,10 @@
   import "core.typ" as _core
   import "utils.typ" as _utils
 
-  let chapter = heading.with(level: 1, supplement: [Kapitel])
-
-  // used in quotes
-  let q(body) = [\[#body\]]
-
   (
-    chapter,
-    q,
+    _utils.chapter,
+    _utils.quote-omission,
+    _utils.i18n,
     _utils._pkg.glossarium.gls,
     _utils._pkg.glossarium.glspl,
     _core.doc,
