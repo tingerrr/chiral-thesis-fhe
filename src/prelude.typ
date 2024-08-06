@@ -9,6 +9,7 @@
   i18n,
 
   // glossarium re-exports
+  glossarium,
   gls,
   glspl,
 
@@ -27,6 +28,7 @@
     _utils.chapter,
     _utils.quote-omission,
     _utils.i18n,
+    _utils._pkg.glossarium,
     _utils._pkg.glossarium.gls,
     _utils._pkg.glossarium.glspl,
     _core.doc,
