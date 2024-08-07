@@ -2,10 +2,17 @@
 
 #import "utils/token.typ"
 #import "utils/assert.typ"
+#import "utils/state.typ"
 
 #let _std = (numbering: numbering)
 
 #let chapter = heading.with(level: 1, supplement: [Kapitel])
+
+#let smart-caption(short, long, _state: state.outline) = context if _state.get() {
+  short
+} else {
+  long
+}
 
 #let quote-omission(body) = [\[#body\]]
 
@@ -27,45 +34,6 @@
 
 #let none-or = sentinel-or.with(none)
 #let auto-or = sentinel-or.with(auto)
-
-#let is-within-markers(
-  loc,
-  marker,
-) = {
-  assert.std(type(loc) in (content, location, label, selector), message: _pkg.oxifmt.strfmt(
-    "`loc` must be locatable, was `{}`",
-    type(loc),
-  ))
-
-  if type(loc) == content {
-    loc = loc.location().position()
-  } else if type(loc) != location {
-    loc = locate(loc).position()
-  }
-
-  assert.std.eq(type(marker), label, message: _pkg.oxifmt.strfmt(
-    "marker must be `label`, was `{}`",
-    type(marker)
-  ))
-
-  let markers = query(marker)
-
-  assert.std.eq(markers.len(), 2, message: _pkg.oxifmt.strfmt(
-    "found {} `{}` markers, expected 2", markers.len(), marker
-  ))
-
-  let (a, b) = markers.map(m => m.location().position())
-
-  // before first
-  if loc.page < a.page { return false }
-  if loc.page == a.page and loc.y < a.y { return false }
-
-  // after last
-  if b.page < loc.page { return false }
-  if b.page == loc.page and b.y < loc.y { return false }
-
-  true
-}
 
 // BUG: this and its usages can't respect appendix numbering beacuse the pattern doesn't react to the styles to synthesize it's pattern
 #let chapter-relative-numbering(numbering, ..args) = {

@@ -8,6 +8,7 @@
   chapter,
   q,
   i18n,
+  smartcap,
 
   // glossarium re-exports
   glossarium,
@@ -34,6 +35,7 @@
     _utils.chapter,
     _utils.quote-omission,
     _utils.i18n,
+    _utils.smart-caption,
 
     _pkg.glossarium,
     _pkg.glossarium.gls,
