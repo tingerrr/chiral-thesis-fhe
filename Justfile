@@ -22,6 +22,11 @@ alias tt := typst-test
 @default:
 	just --list --unsorted
 
+# run a program within the justfile environment
+[private]
+run *args:
+	{{ args }}
+
 # run typst-test with the required environment variables
 typst-test *args:
 	typst-test {{ args }}
