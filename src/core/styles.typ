@@ -43,12 +43,13 @@
     rotate(-45deg, image("/assets/images/draft-watermark.svg"))
   }
 
-  set page("a4", margin: (inside: 4cm, outside: 3cm, top: 2.5cm, bottom: 2.5cm), background: background)
+  set page("a4", margin: margin, background: background)
 
   body
 }
 
 #let content(
+  draft: false,
   _fonts: (:),
 ) = body => {
   // number headings up to depth 4
@@ -56,6 +57,19 @@
   show std.heading.where(level: 2): set std.heading(numbering: "1.1")
   show std.heading.where(level: 3): set std.heading(numbering: "1.1")
   show std.heading.where(level: 4): set std.heading(numbering: "1.1")
+
+  // show page relative line numbers in draft mode
+  set par.line(
+    numbering: n => text(gray, numbering("1", n)),
+    numbering-scope: "page",
+  ) if draft
+
+  // don't show any line numbers for figures, listings, equations or headings
+  // these generally look bad and are already easy to reference
+  show std.heading: set par.line(numbering: none)
+  show std.figure: set par.line(numbering: none)
+  show std.table: set par.line(numbering: none)
+  show math.equation: set par.line(numbering: none)
 
   // turn on justification eveyrwhere except for specific elements
   set par(justify: true)
