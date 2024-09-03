@@ -32,13 +32,28 @@
 }
 
 #let global(
+  draft: false,
   _fonts: (:),
 ) = body => {
   // TODO: do we provide the fonts within the scaffold?
   set text(lang: "de", size: 11pt, font: _fonts.serif, fallback: false)
 
-  // TODO: should this really be global?
-  set page("a4", margin: (inside: 4cm, outside: 3cm, top: 2.5cm, bottom: 2.5cm))
+  // move content left by 1cm in draft mode, this doesn't affect vertical layout
+  // and allows reviwers to place notes in the right margin
+  let margin = (top: 2.5cm, bottom: 2.5cm) + if draft {
+    (right: 5cm, left: 2cm)
+  } else {
+    (inside: 4cm, outside: 3cm)
+  }
+
+  // add a watermark to the background which cannot be selected as text
+  let background = if draft {
+    set align(center + horizon)
+    set text(gray.lighten(85%), 122pt)
+    rotate(-45deg, image("/assets/images/draft-watermark.svg"))
+  }
+
+  set page("a4", margin: (inside: 4cm, outside: 3cm, top: 2.5cm, bottom: 2.5cm), background: background)
 
   body
 }
@@ -124,7 +139,7 @@
     it
   }
 
-  // TODO: for as long as we can't remove styles easilty, this will make fletcher diagrams look horrible
+  // TODO: for as long as we can't remove styles easily, this will make fletcher diagrams look horrible
 
   // inline raw gets a faint light gray background box to be easier to distinguish
   // show _std.raw.where(block: false): it => box(
