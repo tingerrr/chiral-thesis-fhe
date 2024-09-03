@@ -38,7 +38,7 @@
   let meta = kind
 
   let body = {
-    show: styles.content(_fonts: _fonts)
+    show: styles.content(draft: draft, _fonts: _fonts)
 
     body
   }
