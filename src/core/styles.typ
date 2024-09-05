@@ -81,7 +81,7 @@
   // show link: text.with(fill: eastern)
 
   // always use quotes
-  show quote.where(block: true): set quote(quotes: true)
+  set quote(quotes: true)
 
   // show attribution also for inline quotes
   show quote.where(block: false): it => {
@@ -109,8 +109,9 @@
   show std.heading: set block(above: 1.4em, below: 1.8em)
   show std.heading: set text(font: _fonts.sans)
 
-  // show outline headings, show them without offset
+  // show outline and bibliography headings without offset
   show std.outline: set std.heading(outlined: true, offset: 0)
+  show std.bibliography: set std.heading(offset: 0)
 
   body
 }
@@ -265,8 +266,6 @@
     }
     it
   }
-
-  show std.bibliography: set std.heading(level: 1)
 
   body
 }
