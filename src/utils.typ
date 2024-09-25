@@ -4,7 +4,15 @@
 #import "utils/assert.typ"
 #import "utils/state.typ"
 
-#let chapter = heading.with(level: 1, supplement: [Kapitel])
+#let chapter(to: none, label: none, ..args) = {
+  pagebreak(weak: true, to: to)
+  let chap = heading(level: 1, supplement: [Kapitel], ..args)
+  if label == none {
+    chap
+  } else {
+    [#chap #label]
+  }
+}
 
 #let smart-caption(short, long, _state: state.outline) = context if _state.get() {
   short
