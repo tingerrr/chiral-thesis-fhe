@@ -18,7 +18,8 @@ When typing `@` your editor will show all labels, this helps narrow down the com
 
 ### Thesis Structure
 The following directories and files are created by default:
-- `main.typ` - The entrypoint of your thesis document, this is what you pass to `typst compile` or enable as preview in your preferred editor.
+- `thesis.typ` - The entrypoint of your thesis document, this is what you pass to `typst compile` or enable as preview in your preferred editor.
+- `poster.typ` - The entrypoint of your thesis poster, likewise to the thesis itself this can be compiled or previewed.
 - `packages.typ` - The package file where packages are imported, importing them once here and importing this in your other files means that upgrading and downgrading packages is easier.
 - `chapters` - Contains a Typst file per chapter. Most of your content will be here, save for some supplementary material like abstracts, acknowledgements and such.
 - `bibliography.yaml` - The bibliography used in this thesis. You can simply import your own `.bib` file, use a reference manager, or use this file as an entrypoint to get started with [hayagriva], Typst's native bibliography managment system.

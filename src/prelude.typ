@@ -23,6 +23,7 @@
 
   // template
   doc,
+  poster,
 
   // kinds
   report,
@@ -31,6 +32,7 @@
 ) = {
   import "_doc.typ"
   import "_pkgs.typ"
+  import "_poster.typ"
   import "core.typ" as _core
   import "ctx.typ" as _ctx
   import "utils.typ" as _utils
@@ -50,6 +52,7 @@
     lovelace.line-label,
 
     _doc.doc,
+    _poster.poster,
     _core.kinds.report,
     _core.kinds.thesis.with(kind: _core.kinds.kinds.thesis-bachelor),
     _core.kinds.thesis.with(kind: _core.kinds.kinds.thesis-master),
