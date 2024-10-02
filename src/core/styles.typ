@@ -43,7 +43,7 @@
     rotate(-45deg, image("/assets/images/draft-watermark.svg"))
   }
 
-  set page("a4", margin: margin, background: background)
+  set page(paper: "a4", margin: margin, background: background)
 
   body
 }
@@ -71,7 +71,7 @@
   show std.table: set par.line(numbering: none)
   show math.equation: set par.line(numbering: none)
 
-  // turn on justification eveyrwhere except for specific elements
+  // turn on justification everywhere except for specific elements
   set par(justify: true)
   show std.table: set par(justify: false)
   show std.raw.where(block: true): set par(justify: false)
