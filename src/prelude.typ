@@ -22,6 +22,7 @@
 
   // template
   doc,
+  poster,
 
   // kinds
   report,
@@ -48,6 +49,7 @@
     lovelace.line-label,
 
     _core.doc,
+    _core.poster,
     _core.kinds.report,
     _core.kinds.thesis.with(kind: _core.kinds.kinds.thesis-bachelor),
     _core.kinds.thesis.with(kind: _core.kinds.kinds.thesis-master),
