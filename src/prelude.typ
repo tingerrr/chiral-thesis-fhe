@@ -1,14 +1,15 @@
-// NOTE: these are largely used for styling configuration which will be done
-// with set rules once custom types exist
+// NOTE(tinger): These are re-exports in order to behave like the original
+// packages but with the adjusted defaults. This will be replaced with set rules
+// once custom types exist.
 #import "prelude/subpar.typ"
 #import "prelude/lovelace.typ"
 
 #let (
   // helper functions
   chapter,
-  q,
   i18n,
   smartcap,
+  todo,
 
   // glossarium re-exports
   glossarium,
@@ -16,6 +17,7 @@
   glspl,
 
   // lovelace re-exports
+  lovelace,
   algorithm,
   line-label,
 
@@ -27,24 +29,27 @@
   bachelors-thesis,
   masters-thesis,
 ) = {
+  import "_doc.typ"
+  import "_pkgs.typ"
   import "core.typ" as _core
-  import "packages.typ" as _pkg
+  import "ctx.typ" as _ctx
   import "utils.typ" as _utils
 
   (
     _utils.chapter,
-    _utils.quote-omission,
     _utils.i18n,
-    _utils.smart-caption,
+    _ctx.smart-caption,
+    _utils.todo,
 
-    _pkg.glossarium,
-    _pkg.glossarium.gls,
-    _pkg.glossarium.glspl,
+    _pkgs.glossarium,
+    _pkgs.glossarium.gls,
+    _pkgs.glossarium.glspl,
 
+    lovelace,
     lovelace.pseudocode-list,
     lovelace.line-label,
 
-    _core.doc,
+    _doc.doc,
     _core.kinds.report,
     _core.kinds.thesis.with(kind: _core.kinds.kinds.thesis-bachelor),
     _core.kinds.thesis.with(kind: _core.kinds.kinds.thesis-master),

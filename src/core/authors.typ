@@ -1,5 +1,7 @@
-#import "/src/packages.typ" as _pkg
+#import "/src/_pkgs.typ"
 #import "/src/utils.typ" as _utils
+
+// TODO: maybe switch to pubmatter for this?
 
 #let _eat-title(value) = {
   let rest = value.trim(at: start)
@@ -9,11 +11,11 @@
   ))
 
   if main == none {
-    return (err: _pkg.oxifmt.strfmt("unknown tilte at: `{}`", rest))
+    return (err: _pkgs.oxifmt.strfmt("unknown tilte at: `{}`", rest))
   }
 
   if not _utils.token.is-boundary(rest) {
-    return (err: _pkg.oxifmt.strfmt("unexpected input after title at: `{}`", rest))
+    return (err: _pkgs.oxifmt.strfmt("unexpected input after title at: `{}`", rest))
   }
 
   if main in ("Prof.", "Dr.", "M.", "B.") {
@@ -23,7 +25,7 @@
       let (suffix, rest) = _utils.token.eat(rest.trim(at: start), regex("\\w+\\. *nat\\."))
       if suffix != none {
         if not _utils.token.is-boundary(rest) {
-          return (err: _pkg.oxifmt.strfmt("unexpected after doctor suffix at: `{}`", rest))
+          return (err: _pkgs.oxifmt.strfmt("unexpected after doctor suffix at: `{}`", rest))
         }
       }
 
@@ -32,7 +34,7 @@
       let (suffix, rest) = _utils.token.eat(rest.trim(at: start), "Sc.")
 
       if suffix == none {
-        return (err: _pkg.oxifmt.strfmt(
+        return (err: _pkgs.oxifmt.strfmt(
           "unknown {} suffix at `{}`",
           if main == "M." { "masters" } else { "bachelors" },
           rest,
@@ -43,7 +45,7 @@
     }
   } else {
     if not _utils.token.is-boundary(rest) {
-      return (err: _pkg.oxifmt.strfmt("unexpected input at: `{}`", rest))
+      return (err: _pkgs.oxifmt.strfmt("unexpected input at: `{}`", rest))
     }
 
     ((main: main, suffix: none), rest)
@@ -53,7 +55,7 @@
 #let parse-title(value) = {
   assert.eq(
     type(value), str,
-    message: _pkg.oxifmt.strfmt("`value` must be a string, was {}", type(value))
+    message: _pkgs.oxifmt.strfmt("`value` must be a string, was {}", type(value))
   )
 
   let res = _eat-title(value)
@@ -65,7 +67,7 @@
 
   rest = rest.trim(at: start)
   if rest.len() != 0 {
-    panic(_pkg.oxifmt.strfmt("unexpected input at `{}`", rest))
+    panic(_pkgs.oxifmt.strfmt("unexpected input at `{}`", rest))
   }
 
   title
@@ -74,7 +76,7 @@
 #let parse-name(value) = {
   assert.eq(
     type(value), str,
-    message: _pkg.oxifmt.strfmt("`value` must be a string, was {}", type(value))
+    message: _pkgs.oxifmt.strfmt("`value` must be a string, was {}", type(value))
   )
 
   value = value.trim().split(" ").filter(frag => frag.len() != 0)
@@ -103,7 +105,7 @@
   // validate names
   // NOTE: using \w is too permissive, but this is not really an issue in most cases
   if not value.all(frag => frag.match(regex("^([\\w'\\-]+|[\\w]\\.)$")) != none) {
-    panic(_pkg.oxifmt.strfmt("name contained invalid character: `{}`", value.join(" ")))
+    panic(_pkgs.oxifmt.strfmt("name contained invalid character: `{}`", value.join(" ")))
   }
 
   let (first, last) = if part != none {
@@ -129,7 +131,7 @@
 #let parse-author(value) = {
   assert.eq(
     type(value), str,
-    message: _pkg.oxifmt.strfmt("`value` must be a string, was {}", type(value))
+    message: _pkgs.oxifmt.strfmt("`value` must be a string, was {}", type(value))
   )
 
   value = value.trim()
@@ -170,11 +172,11 @@
 #let format-title(title, suffix: true) = {
   assert.eq(
     type(title), dictionary,
-    message: _pkg.oxifmt.strfmt("`title` must be a title dictionary, was {}", type(title)),
+    message: _pkgs.oxifmt.strfmt("`title` must be a title dictionary, was {}", type(title)),
   )
   assert.eq(
     title.keys(), ("main", "suffix"),
-    message: _pkg.oxifmt.strfmt(
+    message: _pkgs.oxifmt.strfmt(
       "`title` must contain `main` and `suffix`, contained {}",
       title.keys(),
     ),
@@ -190,11 +192,11 @@
 #let format-name(name, abbreviate: false, last-first: false) = {
   assert.eq(
     type(name), dictionary,
-    message: _pkg.oxifmt.strfmt("`name` must be a name dictionary, was {}", type(name)),
+    message: _pkgs.oxifmt.strfmt("`name` must be a name dictionary, was {}", type(name)),
   )
   assert.eq(
     name.keys(), ("first", "last"),
-    message: _pkg.oxifmt.strfmt(
+    message: _pkgs.oxifmt.strfmt(
       "`name` must contain `first` and `last`, contained {}",
       name.keys(),
     ),
@@ -233,11 +235,11 @@
 ) = {
   assert.eq(
     type(author), dictionary,
-    message: _pkg.oxifmt.strfmt("`author` must be an author dictionary, was {}", type(author)),
+    message: _pkgs.oxifmt.strfmt("`author` must be an author dictionary, was {}", type(author)),
   )
   assert.eq(
     author.keys(), ("titles", "name", "email"),
-    message: _pkg.oxifmt.strfmt(
+    message: _pkgs.oxifmt.strfmt(
       "`author` must contain `titles`, `name` and `email`, contained {}",
       author.keys(),
     ),

@@ -2,17 +2,19 @@
 entrypoint = "src/lib.typ"
 name = "chiral-thesis-fhe"
 version = "0.1.0"
-compiler = "0.11.0"
-authors = ["tinger <me@tinger.dev>"]
+compiler = "0.13.0"
+authors = ["tinger <tinger@tinger.dev>"]
 repository = "https://github.com/tingerrr/chiral-thesis-fhe"
 description = "A template for theses at the Univeristy of Applied Sciences Erfurt"
 keywords = ["FH", "FHE", "Fachhochschule", "Univeristy of Applied Sciences", "Erfurt"]
 categories = ["thesis", "report"]
 license = "MIT"
 exclude = [
-  "assets/universe/",
-  "assets/.ignore",
-  "docs/",
+  "assets/fonts/",
+  "assets/thumbnail/",
+  "assets/watermark/",
+  "doc/",
+  "tests/",
   "Justfile",
   "README.md",
 ]
@@ -20,4 +22,4 @@ exclude = [
 [template]
 path = "template"
 entrypoint = "main.typ"
-thumbnail = "assets/images/thumbnail.png"
+thumbnail = "assets/thumbnail.png"

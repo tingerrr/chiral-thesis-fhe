@@ -1,41 +1,25 @@
-#import "/src/packages.typ" as _pkg
+#import "/src/ctx.typ" as _ctx
 
 #import "utils/token.typ"
 #import "utils/assert.typ"
-#import "utils/state.typ"
 
-#let chapter(to: none, label: none, ..args) = {
-  pagebreak(weak: true, to: to)
-  let chap = heading(level: 1, supplement: [Kapitel], ..args)
-  if label == none {
-    chap
-  } else {
-    [#chap #label]
-  }
-}
-
-#let smart-caption(short, long, _state: state.outline) = context if _state.get() {
-  short
-} else {
-  long
-}
-
-#let quote-omission(body) = [\[#body\]]
+#let todo(body) = block(fill: red.lighten(50%), {
+  body = if body == [] [TODO] else [TODO: #body]
+  body = [#body #label(_ctx.labels.todo)]
+  text(fill: red.darken(50%), body)
+})
 
 #let i18n(de: none, en: none) = context if text.lang == "de" { de } else { en }
+
+#let chapter = heading.with(
+  level: 1,
+  supplement: i18n(de: [Kapitel], en: [Chapter]),
+)
 
 #let sentinel-or(sentinel, value, default) = if value == sentinel {
   value
 } else {
   default()
-}
-
-#let marker(name) = if type(name) == str {
-  [#metadata(())#label(name)]
-} else if type(name) == label {
-  [#metadata(())#name]
-} else {
-  panic(_pkg.oxifmt.strfmt("Can't use `{}` as a marker", name))
 }
 
 #let none-or = sentinel-or.with(none)
