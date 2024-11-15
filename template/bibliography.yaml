@@ -1,0 +1,91 @@
+# The top level keys are what you can refer to in typst files using
+# `@bib:clrs-09` or `#cite(<bib:clrs-09>)`, the rest are the supplementary
+# information used to generate your bilbiography.
+#
+# We use a alphadin-like scheme for naming the keys, but you can name the
+# however you like, the keys don't end up in your document, only the actual
+# bibliography entries. This scheme keeps the keys easy to reference and easy
+# to amend without naming conflicts.
+#
+# Each entry needs at least a `title` and `type`, the rest is optional but
+# highly recommended if you can find it.
+#
+# You can read more about the format on
+# https://github.com/typst/hayagriva/blob/main/docs/file-format.md
+#
+# Reference managers like Jabref already support hayagriva as export format.
+
+# Here's an example of a hayagriva entry:
+# The quintessential computer science book by the authors colloqually known as
+# CLRS
+bib:clrs-09:
+  type: book
+  title: Introduction to Algorithms
+  author:
+    - Cormen, Thomas H.
+    - Leiserson, Charles E.
+    - Rivest, Ronald L.
+    - Stein, Clifford
+  edition: 3
+  date: 2009
+  publisher: MIT Press & McGraw-Hill
+  serial:
+    isbn: 0-262-03384-4
+
+# Here's a very elaborate entry, not all of this is needed or even displayed
+# with default styles, but the extra information makes research easier for
+# people viewing your sources. This shows plenty of fields in use and how you
+# should fill them.
+bib:acr-14:
+  type: article
+  title: Theory and Practice of Chunked Sequences
+  author:
+    # authors are formatted as `<last names>, <first and middle names>`
+    - Acar, Umut A.
+    - Charguéraud, Arthur
+    - Rainey, Mike
+  page-range: 25-36
+  volume: 8737
+  serial:
+    doi: 10.1007/978-3-662-44777-2_3
+    isbn: 978-3-662-44777-2
+  url:
+    value: https://link.springer.com/chapter/10.1007/978-3-662-44777-2_3
+    date: 2024-04-08
+  # this is the document the article is found in, it has no doi but the same
+  # isbn for example
+  parent:
+    type: proceedings
+    title: Algorithms - ESA 2014
+    subtitle: 22th Annual European Symposium, Wrocław, Poland, September 8-10, 2014. Proceedings
+    editor:
+      - Schulz, Andreas S.
+      - Wagner, Dorothea
+    edition: 1
+    date: 2014-08-16
+    url:
+      value: https://link.springer.com/book/10.1007/978-3-662-44777-2
+      date: 2024-04-08
+    serial:
+      isbn: 978-3-662-44777-2
+    publisher: Springer
+    location: Berlin, Heidelberg
+    # the proceedings themselves are related to the conference they're for and
+    # are part of a larger work which compiles many articles and proceedings
+    parent:
+      - type: conference
+        title: Annual European Symposium
+        # dates cannot be ranges like 2014-09-08 - 2014-09-10, so we use the
+        # month only
+        date: 2014-09
+        location: Wrocław, Poland
+      - type: anthology
+        title: Theoretical Computer Science and General Issues
+        serial:
+          issn: 2512-2010
+        parent:
+          type: anthology
+          title: Lecture Notes in Computer Science
+          serial:
+            issn: 0302-9743
+            e-issn: 1611-3349
