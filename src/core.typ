@@ -9,7 +9,7 @@
 #let _fonts = (
   // TODO: ncm seems to have issues with some symbols like list markers
   // serif: "New Computer Modern",
-  serif: "Linux Libertine",
+  serif: "Libertinus Serif",
   // TODO: provide ncms, this is currently not included
   // #let sans = "New Computer Modern Sans"
   sans: "Latin Modern Sans",

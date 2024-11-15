@@ -20,8 +20,6 @@
   long
 }
 
-#let quote-omission(body) = [\[#body\]]
-
 #let i18n(de: none, en: none) = context if text.lang == "de" { de } else { en }
 
 #let sentinel-or(sentinel, value, default) = if value == sentinel {

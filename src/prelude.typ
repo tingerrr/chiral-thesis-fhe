@@ -6,7 +6,6 @@
 #let (
   // helper functions
   chapter,
-  q,
   i18n,
   smartcap,
 
@@ -16,6 +15,7 @@
   glspl,
 
   // lovelace re-exports
+  lovelace,
   algorithm,
   line-label,
 
@@ -33,7 +33,6 @@
 
   (
     _utils.chapter,
-    _utils.quote-omission,
     _utils.i18n,
     _utils.smart-caption,
 
@@ -41,6 +40,7 @@
     _pkg.glossarium.gls,
     _pkg.glossarium.glspl,
 
+    lovelace,
     lovelace.pseudocode-list,
     lovelace.line-label,
 
