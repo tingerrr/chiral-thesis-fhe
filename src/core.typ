@@ -3,21 +3,9 @@
 #import "core/component.typ"
 #import "core/styles.typ"
 
+#import "/src/ctx.typ" as _ctx
+#import "/src/packages.typ" as _pkg
 #import "/src/utils.typ" as _utils
-
-// TODO: lift this into a styling context kind of dictionary.
-#let _fonts = (
-  // TODO: ncm seems to have issues with some symbols like list markers
-  // serif: "New Computer Modern",
-  serif: "Libertinus Serif",
-  // TODO: provide ncms, this is currently not included
-  // #let sans = "New Computer Modern Sans"
-  sans: "Latin Modern Sans",
-  // TODO: provide and use mono font, if another one is expected
-  mono: "DejaVu Sans Mono",
-)
-
-#let _front-matter-anchor = <__ctf:marker:front-matter>
 
 // TODO: arg validation
 // TODO: provide good defaults
@@ -34,11 +22,12 @@
   appendices: none,
   acknowledgement: none,
   affidavit: auto,
+  ctx: _ctx.default,
 ) = body => {
   let meta = kind
 
   let body = {
-    show: styles.content(draft: draft, _fonts: _fonts)
+    show: styles.content(draft: draft, ctx: ctx)
 
     body
   }
@@ -49,42 +38,43 @@
       component.make-outline(
         force-empty: outlines-force-empty,
         ..outline,
+        ctx: ctx,
       )
     }).join(pagebreak(weak: true))
   }
 
-  show: styles.global(draft: draft, _fonts: _fonts)
-  show: styles.outline(_fonts: _fonts)
+  show: styles.global(draft: draft, ctx: ctx)
+  show: styles.outline(ctx: ctx)
 
   // TODO: propose this as the default gls supplement behavior or simply fork glossarium if there are more problems
-  // show: _utils._pkg.glossarium.make-glossary
+  // show: _pkg.glossarium.make-glossary
   show ref: it => {
     let is-figure = it.element != none and it.element.func() == figure
 
-    if is-figure and it.element.kind == _utils._pkg.glossarium.__glossarium_figure {
+    if is-figure and it.element.kind == _pkg.glossarium.__glossarium_figure {
       let extra = if it.supplement == [s] {
         (suffix: it.supplement)
       } else if it.supplement not in (none, auto, []) {
         (display: it.supplement)
       }
 
-      _utils._pkg.glossarium.gls(str(it.target), ..extra)
+      _pkg.glossarium.gls(str(it.target), ..extra)
     } else {
       it
     }
   }
 
-  component.make-title-page(..meta, _fonts: _fonts)
+  component.make-title-page(..meta, ctx: ctx)
 
   if abstracts != none {
     abstracts.map(abstract => {
-      component.make-abstract(..abstract, _fonts: _fonts)
+      component.make-abstract(..abstract, ctx: ctx)
     }).join(pagebreak(weak: true))
   }
 
   set page(
-    header: context if not _utils.is-blank-page() {
-      set text(8pt, font: _fonts.sans)
+    header: context if not _ctx.is-blank-page(ctx: ctx) {
+      set text(8pt, font: ctx.fonts.sans)
       [Fachhochschule Erfurt]
       h(1fr)
       meta.field
@@ -92,7 +82,7 @@
       line(length: 100%, stroke: 0.5pt)
       counter(footnote).update(0)
     },
-    footer: context if not _utils.is-blank-page() {
+    footer: context if not _ctx.is-blank-page(ctx: ctx) {
       set align(if calc.even(here().page()) { left } else { right })
 
       if page.numbering != none {
@@ -102,30 +92,27 @@
   )
 
   // TODO: make configurable
-  show: styles.table()
-  show: styles.raw(
-    theme: "/assets/themes/gruvbox-light.tmTheme",
-    _fonts: _fonts,
-  )
-  show: styles.math()
-  show: styles.figure(kinds: outlines.map(l => l.target), _fonts: _fonts)
-  show: styles.bibliography()
+  show: styles.table(ctx: ctx)
+  show: styles.raw(ctx: ctx)
+  show: styles.math(ctx: ctx)
+  show: styles.figure(kinds: outlines.map(l => l.target), ctx: ctx)
+  show: styles.bibliography(ctx: ctx)
 
   // NOTE: this must currently stay below the figure syles to ensure the fully realized level 1 headings start with their weak pagebreak.
-  show: styles.heading(_fonts: _fonts)
+  show: styles.heading(ctx: ctx)
 
   // start with roman numbering after the prelude
   set page(numbering: "I")
   counter(page).update(1)
 
-  component.make-table-of-contents(_fonts: _fonts)
+  component.make-table-of-contents(ctx: ctx)
 
   if outlines-position == start {
     outlines-pages
   }
 
   // an anchor to retreive the page number we left off with for later
-  _utils.marker(_front-matter-anchor)
+  _ctx.marker(ctx.labels.front-matter-anchor)
 
   // use arabic numbering
   set page(numbering: "1")
@@ -134,7 +121,7 @@
 
   // revert back to roman numbring, continuing where we left off
   set page(numbering: "I")
-  context counter(page).update(counter(page).at(_front-matter-anchor).first() + 1)
+  context counter(page).update(counter(page).at(ctx.labels.front-matter-anchor).first() + 1)
 
   // TODO: is there any need for specific handling like with the other struture elements? the if is currently redundant
   if bibliography != none {
@@ -146,20 +133,18 @@
   }
 
   if glossary != none {
-    component.make-glossary(entries: glossary, _fonts: _fonts)
+    component.make-glossary(entries: glossary, ctx: ctx)
   }
 
   if appendices != none {
     counter(heading).update(0)
-    _utils.state.appendix.update(true)
     appendices.map(appendix => {
-      component.make-appendix(body: appendix)
+      component.make-appendix(body: appendix, ctx: ctx)
     }).join(pagebreak(weak: true))
-    _utils.state.appendix.update(false)
   }
 
   if kinds.is-thesis(meta.kind) and acknowledgement != none {
-    component.make-acknowledgement(body: acknowledgement)
+    component.make-acknowledgement(body: acknowledgement, ctx: ctx)
   }
 
   if kinds.is-thesis(meta.kind) and affidavit != none {
@@ -169,6 +154,7 @@
       date: meta.date,
       body: affidavit,
       kind: meta.kind,
+      ctx: ctx,
     )
   }
 }

@@ -1,3 +1,4 @@
+#import "/src/ctx.typ" as _ctx
 
 // TODO: is the numbering here and for headings in general correct? is the trailing dot expected?
 #let number-appendices(..args) = if args.pos().len() == 1 {
@@ -8,6 +9,7 @@
 
 #let make-appendix(
   body: lorem(100),
+  ctx: _ctx.default,
 ) = {
   set heading(numbering: number-appendices, supplement: [Anhang])
 
@@ -23,6 +25,8 @@
 
   // TODO: figures must be numbered differently here
 
+  ctx.states.in-appendix.update(true)
   heading(level: 1)[Anhang]
   body
+  ctx.states.in-appendix.update(false)
 }

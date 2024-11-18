@@ -28,13 +28,14 @@
   masters-thesis,
 ) = {
   import "core.typ" as _core
+  import "ctx.typ" as _ctx
   import "packages.typ" as _pkg
   import "utils.typ" as _utils
 
   (
     _utils.chapter,
     _utils.i18n,
-    _utils.smart-caption,
+    _ctx.smart-caption,
 
     _pkg.glossarium,
     _pkg.glossarium.gls,

@@ -1,6 +1,7 @@
 #import "/src/core/authors.typ" as _authors
 #import "/src/core/kinds.typ" as _kinds
 
+#import "/src/ctx.typ" as _ctx
 #import "/src/utils.typ" as _utils
 
 #let make-affidavit(
@@ -9,6 +10,7 @@
   date: datetime(year: 1970, month: 01, day: 01),
   body: auto,
   kind: _kinds.report,
+  ctx: _ctx.default,
 ) = {
   _authors.assert-author-valid(author)
   _kinds.assert-kind-valid(kind)

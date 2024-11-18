@@ -1,15 +1,13 @@
-#import "/src/utils.typ" as _utils
+#import "/src/ctx.typ" as _ctx
+#import "/src/packages.typ" as _pkg
 
-#let make-glossary(
-  entries: (:),
-  _fonts: (:),
-) = {
+#let make-glossary(entries: (:), ctx: _ctx.default) = {
   // TODO: perhaps apply the styles only for some parts of the docs in core so those require no resets
 
   // reverse the figure styles
   show figure.caption: emph
-  show figure.caption: set text(fill: black, font: _fonts.serif)
+  show figure.caption: set text(fill: black, font: ctx.fonts.serif)
 
   heading(level: 1)[Glossar]
-  _utils._pkg.glossarium.print-glossary(entries, show-all: true)
+  _pkg.glossarium.print-glossary(entries, show-all: true)
 }
