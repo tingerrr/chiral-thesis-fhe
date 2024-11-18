@@ -10,7 +10,7 @@
   text(fill: red.darken(50%), body)
 })
 
-#let chapter(to: none, label: none, ..args) = {
+#let chapter(to: "odd", label: none, ..args) = {
   pagebreak(weak: true, to: to)
   let chap = heading(level: 1, supplement: [Kapitel], ..args)
   if label == none {

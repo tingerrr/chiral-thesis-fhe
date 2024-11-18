@@ -135,8 +135,8 @@
 }
 
 #let heading(ctx: _ctx.default) = body => {
-  // add pagebreaks on chapters
-  show std.heading.where(level: 1): it => std.pagebreak(weak: true) + it
+  // add pagebreaks on chapters and other level 1 headings
+  show std.heading.where(level: 1): it => std.pagebreak(weak: true, to: "odd") + it
 
   // allow users to use the syntax sugar for sections, but disable this for elemens which
   // produce their own headings
