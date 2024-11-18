@@ -36,14 +36,27 @@
     (inside: 4cm, outside: 3cm)
   }
 
-  // add a watermark to the background which cannot be selected as text
-  let background = if draft {
-    set align(center + horizon)
-    set text(gray.lighten(85%), 122pt)
-    rotate(-45deg, image("/assets/images/draft-watermark.svg"))
+  let background = {
+    // add a watermark to the background which cannot be selected as text
+    if draft {
+      set align(center + horizon)
+      set text(gray.lighten(85%), 122pt)
+      rotate(-45deg, image("/assets/images/draft-watermark.svg"))
+    }
+
+    // add the blank page notice above the water mark if it exists
+    context if _utils.is-blank-page() {
+      place(center + horizon)[this page is intentionally left blank]
+    }
   }
 
   set page("a4", margin: margin, background: background)
+
+  show pagebreak: it => {
+    _utils.marker(_utils.pagebreak-marker.start)
+    it
+    _utils.marker(_utils.pagebreak-marker.end)
+  }
 
   body
 }

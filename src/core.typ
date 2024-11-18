@@ -83,7 +83,7 @@
   }
 
   set page(
-    header: {
+    header: context if not _utils.is-blank-page() {
       set text(8pt, font: _fonts.sans)
       [Fachhochschule Erfurt]
       h(1fr)
@@ -92,7 +92,7 @@
       line(length: 100%, stroke: 0.5pt)
       counter(footnote).update(0)
     },
-    footer: context {
+    footer: context if not _utils.is-blank-page() {
       set align(if calc.even(here().page()) { left } else { right })
 
       if page.numbering != none {

@@ -28,6 +28,9 @@
   default()
 }
 
+#let none-or = sentinel-or.with(none)
+#let auto-or = sentinel-or.with(auto)
+
 #let marker(name) = if type(name) == str {
   [#metadata(())#label(name)]
 } else if type(name) == label {
@@ -36,8 +39,22 @@
   panic(_pkg.oxifmt.strfmt("Can't use `{}` as a marker", name))
 }
 
-#let none-or = sentinel-or.with(none)
-#let auto-or = sentinel-or.with(auto)
+#let pagebreak-marker = (
+  start: " __ctf:break:start",
+  end: " __ctf:break:end",
+)
+
+// credit: https://github.com/typst/typst/issues/2722#issuecomment-2481508318
+#let is-blank-page() = {
+  let page-num = here().page()
+  let markers = selector.or(
+    label(pagebreak-marker.start),
+    label(pagebreak-marker.end),
+  )
+  query(markers).chunks(2).any(((start, end)) => {
+    start.location().page() < page-num and page-num < end.location().page()
+  })
+}
 
 // BUG: this and its usages can't respect appendix numbering beacuse the pattern doesn't react to the styles to synthesize it's pattern
 #let chapter-relative-numbering(numbering, ..args) = {
