@@ -7,7 +7,7 @@
   numbering("1.", ..args.pos().slice(1))
 }
 
-#let make-appendix(
+#let appendix(
   body: lorem(100),
   ctx: _ctx.default,
 ) = {
@@ -30,3 +30,17 @@
   body
   ctx.states.in-appendix.update(false)
 }
+
+#let appendices(
+  appendices: (
+    lorem(100),
+    lorem(100),
+  ),
+  ctx: _ctx.default,
+) = {
+  counter(heading).update(0)
+  appendices.map(body => {
+    appendix(body: body, ctx: ctx)
+  }).join(pagebreak(weak: true))
+}
+

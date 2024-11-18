@@ -1,4 +1,5 @@
 #import "/src/ctx.typ" as _ctx
+#import "/src/packages.typ" as _pkg
 #import "/src/utils.typ" as _utils
 
 // NOTE: because we re-use plenty of standard library definition's identifiers, we use `std.` to
@@ -6,26 +7,7 @@
 
 // TODO: separate optional and mandatory styling, let the user control optional styling
 
-#let outline(
-  ctx: _ctx.default,
-) = body => {
-  set std.outline(fill: std.repeat("  .  "))
-
-  show std.outline.entry: it => {
-    std.link(it.element.location(), it.body)
-    [ ]
-    std.box(width: 1fr, it.fill)
-    [ ]
-    context box(
-      width: std.measure[999].width,
-      std.align(std.right, it.page),
-    )
-  }
-
-  body
-}
-
-#let global(
+#let document(
   draft: false,
   ctx: _ctx.default,
 ) = body => {
@@ -62,6 +44,43 @@
     _ctx.marker(ctx.labels.pagebreak.end)
   }
   set page(paper: "a4", margin: margin, background: background)
+
+  // TODO: propose this as the default gls supplement behavior or simply fork
+  // glossarium if there are more problems
+  show ref: it => {
+    let is-figure = it.element != none and it.element.func() == figure
+
+    if is-figure and it.element.kind == _pkg.glossarium.__glossarium_figure {
+      let extra = if it.supplement == [s] {
+        (suffix: it.supplement)
+      } else if it.supplement not in (none, auto, []) {
+        (display: it.supplement)
+      }
+
+      _pkg.glossarium.gls(str(it.target), ..extra)
+    } else {
+      it
+    }
+  }
+
+  body
+}
+
+#let outline(
+  ctx: _ctx.default,
+) = body => {
+  set std.outline(fill: std.repeat("  .  "))
+
+  show std.outline.entry: it => {
+    std.link(it.element.location(), it.body)
+    [ ]
+    std.box(width: 1fr, it.fill)
+    [ ]
+    context box(
+      width: std.measure[999].width,
+      std.align(std.right, it.page),
+    )
+  }
 
   body
 }
@@ -188,7 +207,7 @@
   body
 }
 
-#let figure(kinds: (std.image, std.raw, std.table), ctx: _ctx.default) = body => {
+#let figure(ctx: _ctx.default) = body => {
   // default to 1-1 numbering
   set std.figure(numbering: n => _utils.chapter-relative-numbering("1-1", n))
 
@@ -197,7 +216,9 @@
 
   // reset all figure counters on chapters
   show std.heading.where(level: 1): it => {
-    kinds.map(k => std.counter(std.figure.where(kind: k)).update(0)).join()
+    for c in ctx.counter-resets.chapter {
+      c.update(0)
+    }
     it
   }
 
@@ -287,6 +308,45 @@
     }
     it
   }
+
+  body
+}
+
+#let post-abstract(
+  faculty: "Angewandte Informatik",
+  ctx: _ctx.default,
+) = body => {
+  set std.page(
+    header: context if not _ctx.is-blank-page(ctx: ctx) {
+      set text(8pt, font: ctx.fonts.sans)
+      [Fachhochschule Erfurt]
+      h(1fr)
+      faculty
+      v(-0.5em)
+      line(length: 100%, stroke: 0.5pt)
+      for c in ctx.counter-resets.page {
+        c.update(0)
+      }
+    },
+    footer: context if not _ctx.is-blank-page(ctx: ctx) {
+      set align(if calc.even(here().page()) { left } else { right })
+
+      if page.numbering != none {
+        counter(page).display(page.numbering)
+      }
+    }
+  )
+
+  // TODO: make configurable
+  show: outline(ctx: ctx)
+  show: table(ctx: ctx)
+  show: raw(ctx: ctx)
+  show: math(ctx: ctx)
+  show: figure(ctx: ctx)
+  show: bibliography(ctx: ctx)
+
+  // NOTE: this must currently stay below the figure syles to ensure the fully realized level 1 headings start with their weak pagebreak.
+  show: heading(ctx: ctx)
 
   body
 }

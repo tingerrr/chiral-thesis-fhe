@@ -37,25 +37,52 @@
 /// These are mainly useful for debugging, or to swap out labels with clashing
 /// identifiers.
 #let default-labels = (
-  /// Used to retrieve the page numbering at the end of the front matter.
+  /// The lable used to retrieve the page numbering at the end of the front
+  /// matter.
   front-matter-anchor: <ctf:marker:front-matter>,
-  /// Used to mark the beginning and end of blank pages.
+  /// The labels used to mark the beginning and end of blank pages.
   pagebreak: (
     start: <ctf:marker:pagebreak:start>,
     end: <ctf:marker:pagebreak:end>,
   )
 )
 
-/// The default context object.
-#let default = (
-  fonts: default-fonts,
-  colors: default-colors,
-  states: default-states,
-  labels: default-labels,
+/// The default counters to reset per chapter.
+#let default-chapter-counter-resets = (
+  counter(figure.where(kind: image)),
+  counter(figure.where(kind: raw)),
+  counter(figure.where(kind: table)),
 )
 
-/// Place an invisible marker with the given key.
-#let marker(name) = [#metadata(none)#name]
+/// The default counters to reset per page.
+#let default-page-counter-resets = (
+  counter(footnote),
+)
+
+/// The default context object.
+#let default = (
+  /// Fonts used for styling.
+  fonts: default-fonts,
+  /// Colors used for styling.
+  colors: default-colors,
+  /// States used for introspection.
+  states: default-states,
+  /// Labels used for introspection.
+  labels: default-labels,
+  /// The counters to reset at certain points in the document.
+  counter-resets: (
+    /// The counters to reset every chapter.
+    chapter: default-chapter-counter-resets,
+    /// The counters to reset every page.
+    page: default-page-counter-resets,
+  )
+)
+
+/// Place an invisible marker with the given label.
+///
+/// - label (label): The marker label to place.
+/// -> content
+#let marker(label) = [#metadata(none)#label]
 
 /// Check whether the current page is a blank page created by a `pagebreak`.
 ///

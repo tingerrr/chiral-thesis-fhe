@@ -1,7 +1,7 @@
 #import "/src/ctx.typ" as _ctx
 #import "/src/packages.typ" as _pkg
 
-#let make-glossary(entries: (:), ctx: _ctx.default) = {
+#let glossary(entries: (:), ctx: _ctx.default) = {
   // TODO: perhaps apply the styles only for some parts of the docs in core so those require no resets
 
   // reverse the figure styles

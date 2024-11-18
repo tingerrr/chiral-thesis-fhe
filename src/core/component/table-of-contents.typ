@@ -1,6 +1,6 @@
 #import "/src/ctx.typ" as _ctx
 
-#let make-table-of-contents(ctx: _ctx.default) = {
+#let table-of-contents(ctx: _ctx.default) = {
   show outline.entry: it => {
     if it.level == 1 {
       v(18pt, weak: true)

@@ -1,6 +1,6 @@
 #import "/src/ctx.typ" as _ctx
 
-#let make-abstract(
+#let abstract(
   title: "Abstract",
   body: lorem(100),
   ctx: _ctx.default,
@@ -13,3 +13,16 @@
   heading(level: 1, title)
   par(justify: true, body)
 }
+
+#let abstracts(
+  abstracts: (
+    (title: "Kurzfassung", body: lorem(100)),
+    (title: "Abstract", body: lorem(100)),
+  ),
+  ctx: _ctx.default,
+) = {
+  abstracts.map(((title, body)) => {
+    abstract(title: title, body: body, ctx: ctx)
+  }).join(pagebreak(weak: true))
+}
+
