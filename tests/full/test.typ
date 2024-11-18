@@ -5,7 +5,7 @@
   kind: masters-thesis(
     date: datetime(year: 1970, month: 01, day: 01),
   ),
-  draft: false,
+  mode: "print",
   abstracts: (
     (title: [Abstract], body: lorem(100)),
   ),

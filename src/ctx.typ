@@ -44,7 +44,9 @@
   pagebreak: (
     start: <ctf:marker:pagebreak:start>,
     end: <ctf:marker:pagebreak:end>,
-  )
+  ),
+  /// The label used to embedd TODOs.
+  todo: <ctf:marker:todo>,
 )
 
 /// The default counters to reset per chapter.

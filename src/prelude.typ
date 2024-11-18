@@ -8,6 +8,7 @@
   chapter,
   i18n,
   smartcap,
+  todo,
 
   // glossarium re-exports
   glossarium,
@@ -36,6 +37,7 @@
     _utils.chapter,
     _utils.i18n,
     _ctx.smart-caption,
+    _utils.todo,
 
     _pkg.glossarium,
     _pkg.glossarium.gls,

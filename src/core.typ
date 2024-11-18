@@ -10,7 +10,7 @@
 // TODO: provide good defaults
 #let doc(
   kind: (:),
-  draft: true,
+  mode: "draft",
   abstracts: none,
   bibliography: none,
   outlines: (),
@@ -25,7 +25,29 @@
   affidavit-force: false,
   ctx: _ctx.default,
 ) = body => {
-  show: styles.document(draft: draft, ctx: ctx)
+  if mode == "strict" {
+    if bibligography == none {
+      panic("missing bibliography")
+    }
+
+    if affidavit == none {
+      panic("missing affidavit")
+    }
+
+    context {
+      let todos = query(ctx.labels.todo)
+      if todos.len() != 0 {
+        // NOTE: we assume TODOs only exist within the content, this will be
+        // slightly wrong for the appendix, but we cannot yet get the page
+        // numbering at a location, so this is still better than the physical
+        // page number in most casese
+        let pages = todos.map(t => counter(page).at(t.location()).first()).join(", ", last: " and ")
+        panic("Remaining TODOs found on pages " + pages)
+      }
+    }
+  }
+
+  show: styles.document(draft: mode == "draft", ctx: ctx)
 
   component.prelude(kind: kind, abstracts: abstracts, ctx: ctx)
 
@@ -46,7 +68,7 @@
 
   component.main-content(
     kind: kind,
-    draft: draft,
+    draft: mode == "draft",
     body,
     ctx: ctx,
   )

@@ -4,6 +4,12 @@
 #import "utils/token.typ"
 #import "utils/assert.typ"
 
+#let todo(body) = block(fill: red.lighten(50%), {
+  body = if body == [] [TODO] else [TODO: #body]
+  body = [#body #label(_ctx.labels.todo)]
+  text(fill: red.darken(50%), body)
+})
+
 #let chapter(to: none, label: none, ..args) = {
   pagebreak(weak: true, to: to)
   let chap = heading(level: 1, supplement: [Kapitel], ..args)
