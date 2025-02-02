@@ -1,6 +1,5 @@
 #import "/src/core/authors.typ" as _authors
 #import "/src/core/kinds.typ" as _kinds
-
 #import "/src/ctx.typ" as _ctx
 #import "/src/utils.typ" as _utils
 

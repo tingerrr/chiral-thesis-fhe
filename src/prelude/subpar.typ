@@ -1,5 +1,5 @@
 #let (super, grid) = {
-  import "/src/packages.typ" as _pkg
+  import "/src/_pkgs.typ"
   import "/src/utils.typ" as _utils
 
   let subpar-args = (
@@ -15,7 +15,7 @@
   )
 
   (
-    _pkg.subpar.super.with(..subpar-args),
-    _pkg.subpar.grid.with(..subpar-args),
+    _pkgs.subpar.super.with(..subpar-args),
+    _pkgs.subpar.grid.with(..subpar-args),
   )
 }

@@ -1,22 +1,22 @@
+#import "/src/ctx.typ" as _ctx
+#import "kinds.typ" as _kinds
+#import "styles.typ" as _styles
+
 #import "component/abstract.typ": abstract, abstracts
 #import "component/acknowledgement.typ": acknowledgement
-#import "component/appendix.typ": appendix, appendices
 #import "component/affidavit.typ": affidavit
+#import "component/appendix.typ": appendix, appendices
 #import "component/glossary.typ": glossary
+#import "component/outline.typ": outline, outlines
 #import "component/table-of-contents.typ": table-of-contents
 #import "component/title-page.typ": title-page
-#import "component/outline.typ": outline, outlines
 
 #let _abstracts = abstracts
 #let _acknowledgement = acknowledgement
-#let _appendices = appendices
 #let _affidavit = affidavit
+#let _appendices = appendices
 #let _glossary = glossary
 #let _outlines = outlines
-
-#import "/src/ctx.typ" as _ctx
-#import "/src/core/kinds.typ" as _kinds
-#import "/src/core/styles.typ" as _styles
 
 /// Construct the default prelude.
 #let prelude(

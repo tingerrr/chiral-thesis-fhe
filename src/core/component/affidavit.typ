@@ -1,5 +1,4 @@
 #import "/src/core/authors.typ" as _authors
-
 #import "/src/ctx.typ" as _ctx
 #import "/src/utils.typ" as _utils
 

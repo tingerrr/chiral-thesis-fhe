@@ -1,5 +1,5 @@
 #import "/src/ctx.typ" as _ctx
-#import "/src/packages.typ" as _pkg
+#import "/src/_pkgs.typ"
 
 #let glossary(entries: (:), ctx: _ctx.default) = {
   // TODO: perhaps apply the styles only for some parts of the docs in core so those require no resets
@@ -9,5 +9,5 @@
   show figure.caption: set text(fill: black, font: ctx.fonts.serif)
 
   heading(level: 1)[Glossar]
-  _pkg.glossarium.print-glossary(entries, show-all: true)
+  _pkgs.glossarium.print-glossary(entries, show-all: true)
 }

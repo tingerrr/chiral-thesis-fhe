@@ -1,5 +1,5 @@
+#import "/src/_pkgs.typ"
 #import "/src/ctx.typ" as _ctx
-#import "/src/packages.typ" as _pkg
 #import "/src/utils.typ" as _utils
 
 // NOTE: because we re-use plenty of standard library definition's identifiers, we use `std.` to
@@ -50,14 +50,14 @@
   show ref: it => {
     let is-figure = it.element != none and it.element.func() == figure
 
-    if is-figure and it.element.kind == _pkg.glossarium.__glossarium_figure {
+    if is-figure and it.element.kind == _pkgs.glossarium.__glossarium_figure {
       let extra = if it.supplement == [s] {
         (suffix: it.supplement)
       } else if it.supplement not in (none, auto, []) {
         (display: it.supplement)
       }
 
-      _pkg.glossarium.gls(str(it.target), ..extra)
+      _pkgs.glossarium.gls(str(it.target), ..extra)
     } else {
       it
     }

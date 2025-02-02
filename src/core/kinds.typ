@@ -1,4 +1,4 @@
-#import "/src/core/authors.typ" as _authors
+#import "authors.typ" as _authors
 
 #let kinds = (
   report: (

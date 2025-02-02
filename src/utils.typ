@@ -1,5 +1,4 @@
 #import "/src/ctx.typ" as _ctx
-#import "/src/packages.typ" as _pkg
 
 #import "utils/token.typ"
 #import "utils/assert.typ"
