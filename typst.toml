@@ -20,6 +20,6 @@ exclude = [
 ]
 
 [template]
-path = "template"
+path = "assets/template"
 entrypoint = "thesis.typ"
 thumbnail = "assets/thumbnail.png"

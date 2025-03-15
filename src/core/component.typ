@@ -29,7 +29,7 @@
   /// You can either pass it as structured data, or as content to display
   /// directly.
   ///
-  /// -> abstracts | content
+  /// -> abstracts | content | none
   abstracts: (
     (title: "Kurzfassung", body: lorem(100)),
     (title: "Abstract", body: lorem(100)),
@@ -46,7 +46,7 @@
 
   if type(abstracts) == content {
     abstracts
-  } else {
+  } else if type(abstracts) == array {
     _abstracts(abstracts: abstracts)
   }
 }

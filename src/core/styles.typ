@@ -39,7 +39,7 @@
     if draft {
       set std.align(std.center + std.horizon)
       set std.text(std.gray.lighten(85%), 122pt)
-      std.rotate(-45deg, std.image("/assets/images/draft-watermark.svg"))
+      std.rotate(-45deg, std.image("/assets/images/watermark.svg"))
     }
 
     // add the blank page notice above the water mark if it exists

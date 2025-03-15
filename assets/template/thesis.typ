@@ -53,14 +53,14 @@
 // anything that is in this file such as includes will be styled by our template
 // and be considered regular content
 
-#chapter(label: <chap:intro>)[Intro]
+#chapter[Intro] <chap:intro>
 #include "chapters/1 - intro.typ"
 
-#chapter(label: <chap:basics>)[Basics]
+#chapter[Basics] <chap:basics>
 #include "chapters/2 - basics.typ"
 
-#chapter(label: <chap:printing>)[Printing]
+#chapter[Printing] <chap:printing>
 #include "chapters/3 - printing.typ"
 
-#chapter(label: <chap:conclusion>)[Conclusion]
+#chapter[Conclusion] <chap:conclusion>
 #include "chapters/4 - conclusion.typ"
