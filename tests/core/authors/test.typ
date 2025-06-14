@@ -1,6 +1,8 @@
-#import "/src/core/authors.typ"
+/// Synopsis:
+/// - Check the correctness of author parsing
+/// - Check the correctness of author formatting
 
-#set page(height: 1cm, width: 1cm)
+#import "/src/core/authors.typ"
 
 //
 // parsing
@@ -77,9 +79,9 @@
     first: ("tingerrr",),
     last: (),
   ),
-  email: "me@tinger.dev",
+  email: "tinger@tinger.dev",
 )
-#assert.eq(parse-author("B. Sc. tingerrr <me@tinger.dev>"), tingerrr)
+#assert.eq(parse-author("B. Sc. tingerrr <tinger@tinger.dev>"), tingerrr)
 
 #let kpj = (
   titles: (
@@ -93,7 +95,7 @@
   ),
   email: none,
 )
-#assert.eq(parse-author("B. Sc. tingerrr <me@tinger.dev>"), tingerrr)
+#assert.eq(parse-author("B. Sc. tingerrr <tinger@tinger.dev>"), tingerrr)
 #assert.eq(parse-author("Prof. Dr. rer. nat. Dr. sc. nat. Klaus Peter Jantke"), kpj)
 
 //
@@ -118,5 +120,5 @@
 #assert.eq(format-name(knuth, abbreviate: true), "D. E. Knuth")
 
 // author
-#assert.eq(format-author(tingerrr, link: false), "B. Sc. tingerrr <me@tinger.dev>")
+#assert.eq(format-author(tingerrr, link: false), "B. Sc. tingerrr <tinger@tinger.dev>")
 #assert.eq(format-author(kpj, link: false), "Prof. Dr. rer. nat. Dr. sc. nat. Klaus Peter Jantke")

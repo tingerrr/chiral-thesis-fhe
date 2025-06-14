@@ -1,4 +1,4 @@
-#import "/src/core/authors.typ" as _authors
+#import "authors.typ" as _authors
 
 #let kinds = (
   report: (
@@ -19,7 +19,7 @@
   title: [Mustertitel],
   subtitle: none,
   author: "Musterstudent, Max",
-  field: [Fachbereich],
+  faculty: [Fachbereich],
   date: datetime(year: 1970, month: 01, day: 01),
 ) = {
   (
@@ -29,7 +29,7 @@
     title: title,
     subtitle: subtitle,
     author: _authors.prepare-author(author),
-    field: field,
+    faculty: faculty,
 
     date: date,
     supervisors: (),
@@ -43,7 +43,7 @@
   title: [Mustertitel],
   subtitle: none,
   author: "Musterstudent, Max",
-  field: [Fachbereich],
+  faculty: [Fachbereich],
   date: datetime(year: 1970, month: 01, day: 01),
 
   supervisors: (
@@ -58,7 +58,7 @@
     title: title,
     subtitle: subtitle,
     author: _authors.prepare-author(author),
-    field: field,
+    faculty: faculty,
 
     date: date,
 

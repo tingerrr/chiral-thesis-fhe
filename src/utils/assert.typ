@@ -1,9 +1,9 @@
-#import "/src/packages.typ" as _pkg
+#import "/src/_pkgs.typ"
 
 #let std = assert
 
 #let text(name, value) = {
   if type(value) not in (str, content) {
-    panic(_pkg.oxifmt.strfmt("`{}` must be text, was of type `{}`", name, type(value)))
+    panic(_pkgs.oxifmt.strfmt("`{}` must be text, was of type `{}`", name, type(value)))
   }
 }

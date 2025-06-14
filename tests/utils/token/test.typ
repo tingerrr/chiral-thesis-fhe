@@ -1,3 +1,6 @@
+/// Synopsis:
+/// - Check for correct tokenization
+
 #import "/src/utils/token.typ"
 
 #set page(height: 1cm, width: 1cm)
